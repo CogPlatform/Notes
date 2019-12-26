@@ -2,11 +2,21 @@
 Various notes on setting up our software + hardware environment. In general, all software development should take place under Ubuntu Linux, the default OS for our workstations. 
 
 # Setting up Ubuntu 18.04
-For Ubuntu, we are using the LTS version of Ubuntu as the default. For new installs the first thing to do is install Chinese text entry and language support: https://www.pinyinjoe.com/linux/ubuntu-18-gnome-chinese-setup.htm — next you need to install the minimum number of tools for development. I always install at least: `sudo apt-get install build-essential vim curl file zsh git figlet jq freeglut3`. Once you have installed MATLAB, you can then use `sudo apt-get install freeglut3 libusb-1.0 libraw1394 matlab-support` for PTB compatibility.
+For Ubuntu, we are using the LTS version of Ubuntu as the default. For new installs the first thing to do is install Chinese text entry and language support: https://www.pinyinjoe.com/linux/ubuntu-18-gnome-chinese-setup.htm — next you need to install the minimum number of tools for development. I always install at least: `sudo apt-get install build-essential vim curl file zsh git figlet jq libusb-1.0.0 libraw1394-22 freeglut3`. Once you have installed MATLAB, you can then try `sudo apt-get install matlab-support` for PTB compatibility.
+
+# Installing Github repos
+```
+mkdir -p ~/Code
+cd ~/Code
+git clone --depth 1 https://github.com/iandol/Psychtoolbox-3.git
+git clone https://github.com/iandol/opticka.git
+git clone https://github.com/CogPlatform/Titta.git
+git clone https://github.com/CogPlatform/Mymou.git
+```
 
 ## Major Software to Install:
 1. MATLAB — latest version kept up-to-date.
-1. PTB — use my custom fork and and install it using Git: `git clone --depth 1 https://github.com/iandol/Psychtoolbox-3.git ~/Code/Psychtoolbox`. Then in MATLAB, `cd` to the install folder and run `SetupPsychtoolbox.m` directly.
+1. PTB — use my custom fork and and install it using Git; then in MATLAB, `cd` to the install folder and run `SetupPsychtoolbox.m` directly.
 1. Tobii Pro Eye Tracker Manager – https://www.tobiipro.com/downloads/ 
 1. Visual Studio Code — great general purpose text editor, great Python support — https://code.visualstudio.com [download](https://code.visualstudio.com/docs/?dv=linux64_deb). Built in Git support etc. But other IDEs like [PyCharm](https://www.jetbrains.com/pycharm/) are also great.
 1. Android Studio V3.3+ — https://developer.android.com/studio/ — used for the Mymou system. We will use both Java and Kotlin language support, but all new code will use Kotlin alone.

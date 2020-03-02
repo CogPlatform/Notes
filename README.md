@@ -1,5 +1,5 @@
 # Software + Hardware Notes
-Various notes on setting up our software + hardware environment. In general, all software development should take place under Ubuntu Linux, the default OS for our workstations. 
+Various notes on setting up our software + hardware environment. In general, all software development should take place under Ubuntu Linux, the default OS for our workstations.
 
 # Setting up Ubuntu 18.04
 For Ubuntu, we are using the LTS version of Ubuntu as the default. For new installs the first thing to do is install Chinese text entry and language support: https://www.pinyinjoe.com/linux/ubuntu-18-gnome-chinese-setup.htm — next you need to install the minimum number of tools for development. I always install at least: `sudo apt-get install build-essential vim curl file zsh git figlet jq libusb-1.0.0 libraw1394-22 freeglut3`. Once you have installed MATLAB, you can then try `sudo apt-get install matlab-support` for PTB compatibility.
@@ -10,6 +10,7 @@ mkdir -p ~/Code
 cd ~/Code
 git clone --depth 1 https://github.com/iandol/Psychtoolbox-3.git
 git clone https://github.com/iandol/opticka.git
+git clone https://github.com/CogPlatform/Training.git
 git clone https://github.com/CogPlatform/Titta.git
 git clone https://github.com/CogPlatform/Mymou.git
 ```
@@ -20,7 +21,7 @@ git clone https://github.com/CogPlatform/Mymou.git
 1. Tobii Pro Eye Tracker Manager – https://www.tobiipro.com/downloads/ 
 1. Visual Studio Code — great general purpose text editor, great Python support — https://code.visualstudio.com [download](https://code.visualstudio.com/docs/?dv=linux64_deb). Built in Git support etc. But other IDEs like [PyCharm](https://www.jetbrains.com/pycharm/) are also great.
 1. Android Studio V3.3+ — https://developer.android.com/studio/ — used for the Mymou system. We will use both Java and Kotlin language support, but all new code will use Kotlin alone.
-1. Python 3 — I prefer to use [Anaconda](https://www.anaconda.com) to install and manage Python, personally I use [Miniconda](https://conda.io/docs/user-guide/install/index.html) to install a minimum then add use [conda](https://conda.io/docs/user-guide/tasks/manage-conda.html) to install packages as needed. It is important for each project to use different [environments](https://conda.io/docs/user-guide/tasks/manage-environments.html). APT installed Python + PIP can break very easily, not sure why...
+1. Python 3 — I prefer to use [Miniconda](https://conda.io/docs/user-guide/install/index.html) to install then use [conda](https://conda.io/docs/user-guide/tasks/manage-conda.html) to install packages as needed. It is better for each project to use different [environments](https://conda.io/docs/user-guide/tasks/manage-environments.html). APT installed Python + PIP can break very easily, not sure why...
 1. Ultimaker Cura — for our Ultimaker 3 3D printer — https://ultimaker.com/en/products/ultimaker-cura-software 
 
 ## Problems

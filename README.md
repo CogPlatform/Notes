@@ -1,8 +1,12 @@
 # Software + Hardware Notes
 Various notes on setting up our software + hardware environment. In general, all software development should take place under Ubuntu Linux, the default OS for our workstations.
 
-# Setting up Ubuntu 18.04
-For Ubuntu, we are using the LTS version of Ubuntu as the default. For new installs the first thing to do is install Chinese text entry and language support: https://www.pinyinjoe.com/linux/ubuntu-18-gnome-chinese-setup.htm — next you need to install the minimum number of tools for development. I always install at least: `sudo apt-get install build-essential vim curl file zsh git figlet jq libusb-1.0.0 freeglut3 libraw1394-11`. Once you have installed MATLAB, you can then try `sudo apt-get install matlab-support` for PTB compatibility.
+# Setting up Ubuntu 20.04
+For Ubuntu, we are using the LTS version of Ubuntu as the default. We already have a fresh 20.04 install cloned and available on the NAS, you can use Clonezilla to restore. For new installs the first thing to do is install Chinese text entry and language support: https://www.pinyinjoe.com/linux/ubuntu-18-gnome-chinese-setup.htm — next you need to install the minimum number of tools for development. I always install at least: `sudo apt-get install build-essential vim curl file zsh git figlet jq libusb-1.0.0 freeglut3 libraw1394-11`. Once you have installed MATLAB, you can then try 
+
+```sudo apt-get install matlab-support``` 
+
+for MATLAB + PTB compatibility.
 
 # Installing Github repos
 ```
@@ -18,7 +22,7 @@ git clone https://github.com/CogPlatform/Mymou.git
 ## Major Software to Install:
 1. MATLAB — latest version kept up-to-date.
 1. PTB — use my custom fork and and install it using Git; then in MATLAB, `cd` to the install folder and run `SetupPsychtoolbox.m` directly.
-1. For 18.04 install gamemode from https://launchpad.net/~samoilov-lex/+archive/ubuntu/gamemode -- for 19.10 it is available in apt already...
+1. For 18.04 install gamemode from https://launchpad.net/~samoilov-lex/+archive/ubuntu/gamemode -- for 20.04 it is available in apt already...
 1. Tobii Pro Eye Tracker Manager – https://www.tobiipro.com/downloads/ 
 1. Visual Studio Code — great general purpose text editor, great Python support — https://code.visualstudio.com [download](https://code.visualstudio.com/docs/?dv=linux64_deb). Built in Git support etc. But other IDEs like [PyCharm](https://www.jetbrains.com/pycharm/) are also great.
 1. Android Studio V3.3+ — https://developer.android.com/studio/ — used for the Mymou system. We will use both Java and Kotlin language support, but all new code will use Kotlin alone.

@@ -2,7 +2,7 @@
 Various notes on setting up our software + hardware environment. In general, all software development should take place under Ubuntu Linux, the default OS for our workstations.
 
 # Setting up Ubuntu 20.04
-For Ubuntu, we are using the LTS version of Ubuntu as the default. We already have a fresh 20.04 install cloned and available on the NAS, you can use Clonezilla to restore. For new installs the first thing to do is install Chinese text entry and language support: https://www.pinyinjoe.com/linux/ubuntu-18-gnome-chinese-setup.htm — next you need to install the minimum number of tools for development. I always install at least: `sudo apt-get install build-essential vim curl file zsh git figlet jq libusb-1.0.0 freeglut3 libraw1394-11`. Once you have installed MATLAB, you can then try 
+For Ubuntu, we are using the LTS version of Ubuntu as the default. We already have a fresh 20.04 install cloned and available on the NAS, you can use Clonezilla to restore. For new installs the first thing to do is install Chinese text entry and language support: https://www.pinyinjoe.com/linux/ubuntu-18-gnome-chinese-setup.htm — next you need to install the minimum number of tools for development. I always install at least: `sudo apt-get install build-essential vim curl file zsh git figlet jq mesa-utils libusb-1.0.0 freeglut3 libraw1394-11`. Once you have installed MATLAB, you can then try 
 
 ```sudo apt-get install matlab-support``` 
 

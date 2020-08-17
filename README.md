@@ -48,3 +48,104 @@ Each database should be suitable for our needs, and possibly if we use Micronaut
 
 ## Python 3
 We will use Python for general purpose development, and for the Neural network training for Mymou and for [DeepLabCut](https://github.com/AlexEMG/DeepLabCut).
+
+
+# Error solving:
+
+# Fix GDM login failures
+[CTRL]+[ALT]+[F3] - Get log (NanoL [ALT]+[arrow] changes buffer in nano), vim: check what is up in /var/log/ `vim /var/log/`. tips: [enter] to see file and [ctrl]6 to get back (or `:Explore`), [ctrl]z pauses vim and `fg` brings it back to play around while navigating the logs. Or `:term` opens a split terminal and use [ctrl]w to switch between two.
+```
+journalctl -b-0 > boot.log
+nano ./boot.log /var/log/Xorg.0.log
+```
+Restart GDM:
+```
+sudo systemctl restart gdm
+```
+or
+```
+sudo systemctl stop gdm.service
+sudo systemctl start gdm.service
+```
+
+Other possibilities:
+```
+sudo chown username:username .Xauthority
+sudo chmod 1777 /tmp
+```
+
+# Stop MATLAB OpenGL Errors
+```
+sudo apt-get purge matlab-support
+sudo apt-get install -f matlab-support
+```
+Say yes to replace C++ libraries.
+
+# Stop CUPS network printers
+Two options:
+
+```
+sudo vim /etc/cups/cups-browsed.conf
+EDIT to: BrowseProtocols none
+```
+
+```
+sudo systemctl stop cups-browsed 
+sudo systemctl disable cups-browsed
+```
+
+# WSL and git line endings:
+https://www.scivision.co/git-line-endings-windows-cygwin-wsl/
+make a `.gitattributes` file then `git config --global core.autocrlf input` & `git config --global core.eol lf`
+
+
+# Install SpectroCal
+Make file /etc/udev/rules.d/99-ftdi.rules with this contents:
+```
+ACTION=="add", ATTRS{idVendor}=="0861", ATTRS{idProduct}=="1003", RUN+="/sbin/modprobe ftdi_sio" RUN+="/bin/sh -c 'echo 0861 1003 > /sys/bus/usb-serial/drivers/ftdi_sio/new_id'"
+```
+```
+sudo udevadm control --reload
+```
+Unplug amd replug.
+
+# Run ETM on a second X display
+```shell
+xsetroot -display :1.1 -solid gray 
+DISPLAY=:1.1 xrandr --query
+DISPLAY=:1.1 /opt/TobiiProEyeTrackerManager/tobiiproeyetrackermanager
+# get screenshot
+maim --xdisplay=:1.1 ~/Pictures/$(date +%s).png 
+```
+
+# Change Refresh rate
+```shell
+DISPLAY=:0.1 xrandr -r 120
+DISPLAY=:0.1 xrandr --query
+```
+
+# Tweak APT Repo
+```shell
+wget -qO - mirrors.ubuntu.com/mirrors.txt 
+sudo sed -i -e 's/archive\.ubuntu\.com/mirrors\.cn99\.com/' /etc/apt/sources.list
+```
+
+# Eyelink on Linux
+```shell
+wget -O - "http://download.sr-support.com/software/dists/SRResearch/SRResearch_key" | sudo apt-key add -
+sudo add-apt-repository "deb http://download.sr-support.com/software SRResearch main"
+sudo apt-get update
+# broken on Ubuntu 20.04:
+sudo apt-get install eyelink-display-software
+# Should work:
+sudo apt-get install eyelinkcore edfapi edf2asc edfconverter
+```
+
+# Disable Nouveau if you want to install NVidia driver
+```shell
+sudo bash -c "echo blacklist nouveau > /etc/modprobe.d/blacklist-nvidia-nouveau.conf"
+sudo bash -c "echo options nouveau modeset=0 >> /etc/modprobe.d/blacklist-nvidia-nouveau.conf"
+sudo update-initramfs -u
+sudo reboot
+```
+

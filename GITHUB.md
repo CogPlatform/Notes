@@ -1,0 +1,94 @@
+# Instructions for using Github to Clone, Fork and Generate Pull Requests
+
+There are many ways to work with Github and git. In general you should create new repositories and fork existing repositories using Github web page. Then clone to your local machine:
+
+```
+➜ cd ~/Code/
+➜ git clone https://github.com/myfork/Training
+➜ cd Training
+```
+
+You can check your remote links back to github:
+
+```
+➜ git remote -v
+origin	https://github.com/myfork/Training.git (fetch)
+origin	https://github.com/myfork/Training.git (push)
+```
+
+Add an `upstream` repository:
+
+```
+➜ git remote add upstream https://github.com/CogPlatform/Training.git
+➜ git remote -v
+origin	  https://github.com/myfork/Training.git (fetch)
+origin	  https://github.com/myfork/Training.git (push)
+upstream	https://github.com/CogPlatform/Training.git (fetch)
+upstream	https://github.com/CogPlatform/Training.git (push)
+```
+
+
+
+Fetch from the `origin` and `upstream` repositories:
+
+```
+➜ git fetch --all
+Fetching origin
+Fetching upstream
+remote: Enumerating objects: 68, done.
+remote: Counting objects: 100% (68/68), done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 81 (delta 64), reused 67 (delta 64), pack-reused 13
+Unpacking objects: 100% (81/81), 4.43 MiB | 679.00 KiB/s, done.
+```
+
+Merge changes **from** the `upstream/master` branch into your local `master` branch:
+
+```
+➜ git merge --ff-only upstream/master master
+Updating b825e4e26..b52ca1204
+Updating files: 100% (406/406), done.
+Fast-forward ...
+```
+
+Create a new local branch, `newbranch`:
+
+```
+➜ git checkout -b newbranch
+```
+
+Edit files and make changes, then commit those changes:
+
+```
+➜ git commit --all
+```
+
+Push the changes to a new branch on github:
+
+```
+➜ git push --set-upstream origin newbranch
+```
+
+Create a pull request on github.com 
+
+## Cleaning up local mistakes:
+
+Simplest is to just checkout the the current working version:
+
+```
+➜ git checkout .
+```
+
+This is a more rigorous option, removing any uncommited files:
+
+```
+➜ git reset --hard origin/master; git clean -fd
+```
+
+
+# Tutorials:
+
+* https://learngitbranching.js.org 
+* https://lab.github.com/githubtraining/introduction-to-github 
+* https://guides.github.com/introduction/git-handbook/#basic-git 
+* https://training.github.com/downloads/github-git-cheat-sheet.pdf 

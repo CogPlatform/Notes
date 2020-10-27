@@ -1,6 +1,15 @@
 # Instructions for using Github to Clone, Fork and Generate Pull Requests
 
-There are many ways to work with Github and git. In general you should create new repositories and fork existing repositories using Github web page. Then clone to your local machine:
+There are many ways to work with Github and git. THe first thing to do is configure your name and link (it's supposed to be an email but I use a name basaed on which computer it 
+is:
+
+```
+ git config --global user.name "iandol"
+ git config --global user.email "iandol@cog5"
+ git config --global color.ui auto
+ ```
+
+In general you should create new repositories and fork existing repositories using Github web page. Then clone to your local machine:
 
 ```
 ➜ cd ~/Code/

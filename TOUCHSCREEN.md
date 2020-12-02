@@ -12,6 +12,32 @@ less /proc/bus/input/devices
 ```
 
 ```
+I: Bus=0003 Vendor=222a Product=0001 Version=0110
+N: Name="ILITEK ILITEK-TP Mouse"
+P: Phys=usb-0000:00:14.0-7.4/input1
+S: Sysfs=/devices/pci0000:00/0000:00:14.0/usb1/1-7/1-7.4/1-7.4:1.1/0003:222A:0001.0005/input/input8
+U: Uniq=V06.00.00.00
+H: Handlers=mouse2 event8 js0 
+B: PROP=0
+B: EV=1b
+B: KEY=1f0000 0 0 0 0
+B: ABS=3
+B: MSC=10
+
+I: Bus=0003 Vendor=222a Product=0001 Version=0110
+N: Name="ILITEK ILITEK-TP"
+P: Phys=usb-0000:00:14.0-7.4/input0
+S: Sysfs=/devices/pci0000:00/0000:00:14.0/usb1/1-7/1-7.4/1-7.4:1.0/0003:222A:0001.0004/input/input10
+U: Uniq=V06.00.00.00
+H: Handlers=mouse1 event7 
+B: PROP=2
+B: EV=1b
+B: KEY=400 0 0 0 0 0
+B: ABS=260800000000003
+B: MSC=20
+```
+
+```
 [I] ➜ DISPLAY=:0.0 xrandr
 Screen 0: minimum 320 x 200, current 5120 x 2880, maximum 16384 x 16384
 DisplayPort-0 connected primary 5120x2880+0+0 (normal left inverted right x axis y axis) 527mm x 296mm

@@ -1,10 +1,10 @@
 # Configuring Touchscreens with 2 X-Screens
 
-https://wiki.archlinux.org/index.php/Touchscreen
-https://www.freedesktop.org/wiki/Software/xinput_calibrator/
-https://github.com/tias/xinput_calibrator
-https://github.com/reinderien/xcalibrate
-
+* https://wiki.archlinux.org/index.php/Touchscreen
+* https://www.freedesktop.org/wiki/Software/xinput_calibrator/
+* https://github.com/tias/xinput_calibrator
+* https://github.com/reinderien/xcalibrate
+* https://wiki.archlinux.org/index.php/Talk:Calibrating_Touchscreen#Libinput_breaks_xinput_calibrator
 
 
 ```
@@ -37,6 +37,7 @@ B: ABS=260800000000003
 B: MSC=20
 ```
 
+
 ```
 [I] ➜ DISPLAY=:0.0 xrandr
 Screen 0: minimum 320 x 200, current 5120 x 2880, maximum 16384 x 16384
@@ -45,6 +46,7 @@ DisplayPort-0 connected primary 5120x2880+0+0 (normal left inverted right x axis
 Screen 1: minimum 320 x 200, current 1920 x 1080, maximum 16384 x 16384
 DisplayPort-3 connected primary 1920x1080+0+0 (normal left inverted right x axis y axis) 377mm x 212mm
 ```
+
 
 ```
 [I] ➜ xinput             
@@ -80,5 +82,3 @@ EndSection
 
 
 
-
-https://wiki.archlinux.org/index.php/Talk:Calibrating_Touchscreen#Libinput_breaks_xinput_calibrator

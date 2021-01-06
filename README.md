@@ -52,9 +52,15 @@ We will use Python for general purpose development, and for the Neural network t
 
 # Error solving:
 
-## MATLAB and Intel GPU
+## MATLAB and Intel GPUs
 
-Start matlab from terminal:
+Mario recommends:
+
+```
+echo "-Djogl.disable.openglarbcontext=1" | sudo tee /usr/local/MATLAB/R2020b/bin/glnxa64/java.opts
+```
+
+This is the slower method:
 ```
 export MESA_LOADER_DRIVER_OVERRIDE=i965; matlab
 ```

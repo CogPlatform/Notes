@@ -1,6 +1,6 @@
 # How to set up TWO displays for PTB + Ubuntu
 
-PTB uses and optimised display mode where X-Windows is set up so MATLAB occupies one X-screen and PTB can fully control another X-screen (it is not used by Ubuntu GUI at all). The important point is that this system uses X11 config files, and so you should first ensure that X!! doesn't have lots of other config files that may interfere. The config files are stored in `/etc/X11/` and `/etc/X11/xorg.conf.d/`. Check to see if the is an `xorg.cong` file in `/etc/X11/` or other files in `/etc/X11/xorg.conf.d/`.
+PTB uses and optimised display mode where X-Windows is set up so MATLAB occupies one X-screen and PTB can fully control another X-screen (it is not used by Ubuntu GUI at all). The important point is that this system uses X11 config files, and so you should first ensure that X!! doesn't have lots of other config files that may interfere. The config files are stored in `/etc/X11/` and `/etc/X11/xorg.conf.d/`. Check to see if the is an `xorg.cong` file in `/etc/X11/` or files in `/etc/X11/xorg.conf.d/`. PTB's config file is called `/etc/X11/xorg.conf.d/90-ptbxorg.conf` when it is installed, see below.
 
 Make sure you have properly installed MATLAB + PTB:
 
@@ -21,6 +21,6 @@ You can also use `XOrgConfSelector.m` to remove the config file (select **0** as
 
 1) Type CTRL+ALT+F3 to enter a terminal session.
 2) log in with user name and password.
-3) Type `sudo rm /etc/X11/xorg.conf.d/90-ptbconfig.conf`
+3) Type `sudo rm /etc/X11/xorg.conf.d/90-ptbxorg.conf`
 4) Try CTRL+ALT+F1 to switch back to the GUI, or reboot otherwise.
 

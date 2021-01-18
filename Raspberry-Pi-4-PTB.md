@@ -21,7 +21,7 @@ wget -O- http://neuro.debian.net/lists/groovy.cn-bj1.full | sudo tee /etc/apt/so
 sudo apt-key adv --recv-keys --keyserver hkp://pool.sks-keyservers.net:80 0xA5D32F012649A5A9
 sudo apt-get update
 ```
-The apt install `octave-psychtoolbox-3` which will resolve all dependencies for you. 
+The apt install `octave-psychtoolbox-3` which will resolve all dependencies for you. However, this installs an ancient version of PTB, so you may want to override it with a custom download, not yet sure the best way to do that...
 
 There is currently a MESA bug, so you must add an xorg.cof to overrride the bug: https://gitlab.freedesktop.org/mesa/mesa/-/issues/3601
 

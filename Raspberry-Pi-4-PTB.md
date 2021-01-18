@@ -23,6 +23,14 @@ sudo apt-get update
 ```
 The apt install `octave-psychtoolbox-3` which will resolve all dependencies for you. 
 
+There is currently a MESA bug, so you must add an xorg.cof to overrride the bug: https://gitlab.freedesktop.org/mesa/mesa/-/issues/3601
+
+```
+Section "ServerFlags"
+  Option "Debug" "None"
+EndSection
+```
+
 ## Problems
 
 Currently font enumeration is not working, and you must not use a 32bit buffer using `PsychImaging`.

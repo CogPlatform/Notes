@@ -27,6 +27,13 @@ The apt install `octave-psychtoolbox-3` which will resolve all dependencies for 
 
 Currently font enumeration is not working, and you must not use a 32bit buffer using `PsychImaging`.
 
+## Interface to GPIO?
+
+https://github.com/gnu-octave/octave-rpi-gpio
+
+https://www.raspberrypi.org/documentation/usage/gpio/
+
+http://abyz.me.uk/rpi/pigpio/
 
 ## Backing up the SD card
 

@@ -1,9 +1,7 @@
 # Raspberry Pi 4 setup #
 
-We are currently testing the RPi4 to check its viability for PTB useage.
-
 ## OS Options ##
-The standard OS is 32bit Raspian based off of Debian Buster. It is tiny and light, but the major issue is getting a recent Octave installed. Ubuntu 20.10 is also available and has a more recent Octave available.
+The standard OS is 32bit Raspian based off of Debian Buster. It is tiny and light, but the major issue is getting a recent Octave + PTB installed. Ubuntu 20.10 64bit is also available and has a more recent Octave (5.1) available. Both support Neurodebian, but custom PTB installs require a 32bit OS, so Raspian is preferred for this.
 
 ## Installing PTB ##
 The best way to install PTB is to use Neurodebian (supports Raspian and Ubuntu). From USTC for Ubuntu 20.10:
@@ -21,9 +19,9 @@ wget -O- http://neuro.debian.net/lists/groovy.cn-bj1.full | sudo tee /etc/apt/so
 sudo apt-key adv --recv-keys --keyserver hkp://pool.sks-keyservers.net:80 0xA5D32F012649A5A9
 sudo apt-get update
 ```
-The apt install `octave-psychtoolbox-3` which will resolve all dependencies for you. However, this installs an ancient version of PTB, so you may want to override it with a custom download, not yet sure the best way to do that...
+The apt install `octave-psychtoolbox-3` which will resolve all dependencies for you. However, this installs an ancient version of PTB. Recent version of PTB only have 32bit mex builds so cannot work with Ubuntu.
 
-There is currently a MESA bug, so you must add an xorg.cof to overrride the bug: https://gitlab.freedesktop.org/mesa/mesa/-/issues/3601
+There is currently a MESA bug, and a current workaround is to make an xorg.cof to overrride the bug: https://gitlab.freedesktop.org/mesa/mesa/-/issues/3601
 
 ```
 Section "ServerFlags"
@@ -33,7 +31,7 @@ EndSection
 
 ## Problems
 
-Currently font enumeration is not working, and you must not use a 32bit buffer using `PsychImaging`.
+Currently font enumeration is not working, and cannot use a 32bit buffer using `PsychImaging`.
 
 ## Interface to GPIO?
 

@@ -1,22 +1,22 @@
 # Raspberry Pi 4 setup #
 
 ## OS Options ##
-The standard OS is 32bit (armhf) Raspian based off of Debian Buster. It is tiny and light, but the major issue is getting a recent Octave + PTB installed. Ubuntu 20.10 64bit (aarch64) is also available and has a more recent Octave (5.1) available. Both support Neurodebian, but custom PTB installs require a 32bit OS, so Raspian is preferred for this. At the moment there are **no** 64bit builds of PTB for RPi, so for PTB we must use Raspian.... https://downloads.raspberrypi.org/raspios_full_armhf/images/raspios_full_armhf-2021-01-12/2021-01-11-raspios-buster-armhf-full.zip
+The standard OS is 32bit (armhf) Raspian based off of Debian Buster 10. It is tiny and light, but Octave is at V4.4. Ubuntu 20.10 64bit (aarch64) is also available and has a more recent Octave (5.1) available. Both support Neurodebian, but custom PTB installs require a 32bit OS, so Raspian is preferred for this. At the moment there are **no** 64bit builds of PTB for RPi, so for PTB we must use Raspian.... https://downloads.raspberrypi.org/raspios_full_armhf/images/raspios_full_armhf-2021-01-12/2021-01-11-raspios-buster-armhf-full.zip
 
 ## Installing PTB ##
 
 See https://github.com/kleinerm/Psychtoolbox-3/blob/master/Psychtoolbox/PsychDocumentation/RaspberryPiSetup.m for the up-to-date details:
 
-The best way to install PTB is to use Neurodebian (supports Raspian and Ubuntu). 
+The best way is to first install PTB via Neurodebian (supports Raspian and Ubuntu) so we can get all the dependencies solved easily. 
 
-Raspian:
+Raspian 32bit:
 ```
 wget -O- http://neuro.debian.net/lists/buster.cn-hf.full | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
 sudo apt-key adv --recv-keys --keyserver hkp://pool.sks-keyservers.net:80 0xA5D32F012649A5A9
 sudo apt-get update
 ```
 
-From USTC for Ubuntu 20.10:
+USTC Ubuntu 20.10:
 ```
 get -O- http://neuro.debian.net/lists/groovy.cn-hf.full | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
 sudo apt-key adv --recv-keys --keyserver hkp://pool.sks-keyservers.net:80 0xA5D32F012649A5A9
@@ -30,9 +30,11 @@ sudo apt-key adv --recv-keys --keyserver hkp://pool.sks-keyservers.net:80 0xA5D3
 sudo apt-get update
 ```
 
-The apt install `octave-psychtoolbox-3` which will resolve all dependencies for you. However, this installs an ancient version of PTB. Recent version of PTB only have 32bit mex builds so cannot work with Ubuntu.  Stick to Raspian for the moment...
+Then `sudo apt install octave-psychtoolbox-3` which will resolve all dependencies for you. However, this installs an ancient version of PTB. Recent version of PTB only have 32bit mex builds so cannot work with Ubuntu.  Stick to Raspian for the moment...
 
-There is currently a MESA bug, and a current workaround is to make an xorg.conf to overrride the bug: https://gitlab.freedesktop.org/mesa/mesa/-/issues/3601
+## Config and Workarounds ##
+
+There is currently a MESA bug, and a current workaround is to make an `/etc/X11/xorg.conf` file to overrride the bug: https://gitlab.freedesktop.org/mesa/mesa/-/issues/3601
 
 ```
 Section "ServerFlags"
@@ -40,7 +42,34 @@ Section "ServerFlags"
 EndSection
 ```
 
-If you try to download a more recent PTB folder, it will also help to add this to the `.octaverc` file:
+You should edit `\boot\config.txt` to make sure it uses the open-source drivers, and not `dtoverlay=vc4-fkms-v3d`:
+
+```
+[pi4]
+# Enable DRM VC4 V3D driver on top of the dispmanx display stack
+dtoverlay=vc4-kms-v3d-pi4
+max_framebuffers=2
+gpu_mem=256
+
+[all]
+gpu_mem=256
+```
+
+### Gamemode ###
+This allows PTB's `Priority` command to work better on Linux. Install from https://github.com/FeralInteractive/gamemode like so:
+
+```
+sudo apt install meson libsystemd-dev pkg-config ninja-build git libdbus-1-dev libinih-dev
+cd ~/Code
+git clone https://github.com/FeralInteractive/gamemode.git
+cd gamemode
+git checkout 1.6.1 # omit to build the master branch
+./bootstrap.sh
+```
+
+### Updated PTB ###
+
+Download the latest PTB as a ZIP file and create a `~/Code/Psychtoolbox` folder for it. Create an `~/.octacerc` file with the following:
 
 ```
 warning('off', 'Octave:shadowed-function');
@@ -48,11 +77,15 @@ graphics_toolkit('gnuplot');
 more off;
 ```
 
+Run Octave from command-line via `octave --no-gui` and then `cd ~/Code/Psychtoolbox` and run `SetupPsychToolbox`.
+
 ## Problems
 
 Currently font enumeration is not working, and cannot use a 32bit buffer using `PsychImaging`. 32-bit rendering was fixed in a recent PTB update, Mario says fonts work, the only thing broken ATM is HDMI audio.
 
 ## Interface to GPIO?
+
+PTB has a demo: `RaspberryPiGPIODemo.m`
 
 https://github.com/gnu-octave/octave-rpi-gpio
 

@@ -69,7 +69,7 @@ git checkout 1.6.1 # omit to build the master branch
 
 ### Updated PTB ###
 
-Download the latest PTB as a ZIP file and create a `~/Code/Psychtoolbox` folder for it. Create an `~/.octacerc` file with the following:
+Download the [latest PTB as a ZIP file](https://github.com/kleinerm/Psychtoolbox-3/archive/master.zip) and create a `~/Code/Psychtoolbox` folder for it. Create an `~/.octaverc` file with the following:
 
 ```
 warning('off', 'Octave:shadowed-function');
@@ -77,11 +77,11 @@ graphics_toolkit('gnuplot');
 more off;
 ```
 
-Run Octave from command-line via `octave --no-gui` and then `cd ~/Code/Psychtoolbox` and run `SetupPsychToolbox`.
+First, it is important to run Octave from command-line via `octave --no-gui` and then `cd ~/Code/Psychtoolbox` and run `SetupPsychToolbox`. Then you can use the GUI as normal...
 
 ## Problems
 
-Currently font enumeration is not working, and cannot use a 32bit buffer using `PsychImaging`. 32-bit rendering was fixed in a recent PTB update, Mario says fonts work, the only thing broken ATM is HDMI audio.
+32-bit rendering was fixed in a recent PTB update, Mario says fonts work, the only thing broken ATM is HDMI audio.
 
 ## Interface to GPIO?
 

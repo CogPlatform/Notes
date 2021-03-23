@@ -79,19 +79,31 @@ more off;
 
 First, it is important to run Octave from command-line via `octave --no-gui` and then `cd ~/Code/Psychtoolbox` and run `SetupPsychToolbox`. Then you can use the GUI as normal...
 
+## Octave 5.2?
+
+You can get a slightly newer Octave in the buster-backports repo: https://backports.debian.org/Instructions/
+
 ## Problems
 
 32-bit rendering was fixed in a recent PTB update, Mario says fonts work, the only thing broken ATM is HDMI audio.
 
 ## Interface to GPIO?
 
-PTB has a demo: `RaspberryPiGPIODemo.m`
+![](https://raw.githubusercontent.com/Gadgetoid/Pinout.xyz/master/resources/raspberry-pi-pinout.png)
+https://pinout.xyz/
+
+PTB has a demo: `RaspberryPiGPIODemo.m` -- this uses the WirinngPi library that uses a different pin number scheme, and I can't get the gpio command to work.
 
 https://github.com/gnu-octave/octave-rpi-gpio
 
 https://www.raspberrypi.org/documentation/usage/gpio/
 
 http://abyz.me.uk/rpi/pigpio/
+
+Octave has a pythonic python bridge and there are several libraries to call GPIO from Python. Or use pigpio and sockets. Octave has several packages that will be useful:
+
+https://octave.sourceforge.io/instrument-control/index.html
+
 
 
 ## Backing up the SD card

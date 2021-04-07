@@ -67,7 +67,7 @@ git checkout 1.6.1 # omit to build the master branch
 ./bootstrap.sh
 ```
 
-### Updated PTB ###
+## Updated PTB ##
 
 Download the [latest PTB as a ZIP file](https://github.com/kleinerm/Psychtoolbox-3/archive/master.zip) and create a `~/Code/Psychtoolbox` folder for it. Create an `~/.octaverc` file with the following:
 
@@ -79,13 +79,20 @@ more off;
 
 First, it is important to run Octave from command-line via `octave --no-gui` and then `cd ~/Code/Psychtoolbox` and run `SetupPsychToolbox`. Then you can use the GUI as normal...
 
-## Octave 5.2?
+## Octave 5.2
 
 You can get a slightly newer Octave in the buster-backports repo: https://backports.debian.org/Instructions/
 
 ## Latest MESA
 
-You can update the GPU drivers. The easiest way is to use precompiled ones, see https://www.raspberrypi.org/forums/viewtopic.php?f=67&t=293361 -- an or build them yourself from source: https://qengineering.eu/install-vulkan-on-raspberry-pi.html
+You can update the GPU drivers. The easiest way is to use precompiled ones, see https://www.raspberrypi.org/forums/viewtopic.php?f=67&t=293361 
+
+```
+LD_LIBRARY_PATH=/opt/mesa/lib/arm-linux-gnueabihf octave --gui
+```
+Or set `LD_LIBRARY_PATH` in your `.zshrc` to use as the default...
+
+You can build Mesa yourself from source: https://qengineering.eu/install-vulkan-on-raspberry-pi.html
 
 ## Problems
 

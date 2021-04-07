@@ -7,7 +7,7 @@ The standard OS is 32bit (armhf) Raspian based off of Debian Buster 10. It is ti
 
 See https://github.com/kleinerm/Psychtoolbox-3/blob/master/Psychtoolbox/PsychDocumentation/RaspberryPiSetup.m for the up-to-date details:
 
-The best way is to first install PTB via Neurodebian (supports Raspian and Ubuntu) so we can get all the dependencies solved easily. 
+The easiest way is to first install PTB via Neurodebian (supports Raspian and Ubuntu) so we can get all the dependencies solved easily. 
 
 Raspian 32bit:
 ```
@@ -42,7 +42,7 @@ Section "ServerFlags"
 EndSection
 ```
 
-You should edit `\boot\config.txt` to make sure it uses the open-source drivers, and not `dtoverlay=vc4-fkms-v3d`:
+You should edit `\boot\config.txt` to make sure it uses the real open-source drivers, and not fake kms one `dtoverlay=vc4-fkms-v3d`:
 
 ```
 [pi4]
@@ -82,6 +82,10 @@ First, it is important to run Octave from command-line via `octave --no-gui` and
 ## Octave 5.2?
 
 You can get a slightly newer Octave in the buster-backports repo: https://backports.debian.org/Instructions/
+
+## Latest MESA
+
+You can update the GPU drivers. The easiest way is to use precompiled ones, see https://www.raspberrypi.org/forums/viewtopic.php?f=67&t=293361 -- an or build them yourself from source: https://qengineering.eu/install-vulkan-on-raspberry-pi.html
 
 ## Problems
 

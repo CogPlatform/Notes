@@ -24,3 +24,23 @@ The runtime can be downloaded by the install packager or downloaded manually:
 https://www.mathworks.com/help/compiler/install-the-matlab-runtime.html
 https://www.mathworks.com/help/compiler/mcr-path-settings-for-run-time-deployment.html
 
+## Command-line
+
+Without starting MATLAB use the `mcc` command to build from Terminal (replace ^ with \ if you are using `bash` or `zsh`):
+
+```
+mcc -a /Users/ian/Code/Psychtoolbox-3/Psychtoolbox/PsychBasic/PsychPlugins/libptbdrawtext_ftgl64.dylib ^
+-a /Users/ian/Code/Psychtoolbox-3/Psychtoolbox/PsychOpenGL/MOGL/core ^
+-a /Users/ian/Code/Psychtoolbox-3/Psychtoolbox/PsychOpenGL/PsychGLSLShaders ^
+-a /Users/ian/Code/opticka/CoreProtocols ^
+-a /Users/ian/Code/opticka/DefaultStateInfo.m ^
+-a /Users/ian/Code/opticka/communication ^
+-a /Users/ian/Code/opticka/tools ^
+-a /Users/ian/Code/opticka/stimuli ^
+-a /Users/ian/Code/opticka/ui/images ^
+-R -startmsg,'RUNTIME INIT START' ^
+-R -completemsg,'RUNTIME INIT END' ^
+-d ~/build ^
+-v ^
+-m /Users/ian/Code/opticka/runOpticka.m
+```

@@ -1,6 +1,9 @@
 # App depolyment
 
-MATLAB Compiler can be used to package code into standalone programs. PTB has not been tested for stand-alone use, and some changes to the PTB and Titta code was necessary for things to be properly compiled. But once these are merged, it should be possible to build without any further problems.
+MATLAB Compiler can be used to package code into standalone programs. PTB has not been tested for stand-alone use, and some changes to the PTB and Titta code was necessary for things to be properly compiled. These should now be merged, and it should be possible to build without any further problems.
+
+Some of the files below are **PLATFORM-DEPENDENT**, and need to be changed depending on which OS is being built for. For example `libptbdrawtext_ftg
+l64.dylib` for macOS must be replaced with `libptbdrawtext_ftgl64.so.1` for 64bit Linux. One option is to include all of them using `-a ~/Code/Psychtoolbox-3/Psychtoolbox/PsychBasic/PsychPlugins/`. In addition you must change the paths to the locations on the computer. Normally I always install all code into `~/Code/` so that is where PTB, opticka and Titta are installed.
 
 The list of folders that needed to be added to compile properly, you can add them with the GUI App Bundle:
 
@@ -26,7 +29,7 @@ https://www.mathworks.com/help/compiler/mcr-path-settings-for-run-time-deploymen
 
 ## Command-line
 
-Without starting MATLAB you can use the `mcc` command to build from Terminal (replace ^ with \ if you are using `bash` or `zsh`):
+Without starting MATLAB you can use the `mcc` command to build from Terminal (replace ^ with \ if you are using `bash` or `zsh`), indeed this seems to work better than the GUI within MATLAB:
 
 ```
 mcc -a ~/Code/Psychtoolbox-3/Psychtoolbox/PsychBasic/PsychPlugins/libptbdrawtext_ftg

@@ -1,5 +1,5 @@
 # Software + Hardware Notes
-Various notes on setting up our software + hardware environment. In general, all software development should take place under Ubuntu Linux, the default OS for our workstations. I have a bootstrap script I use to configure a new computer (macOS / Linux / windows WSL2), this will install several packages and config scripts depending on the OS, and switch to using `zsh`: https://github.com/iandol/dotfiles/blob/master/bootstrap.sh 
+Various notes on setting up our software + hardware environment. In general, all software development should take place under Ubuntu Linux, the default OS for our workstations. I have a bootstrap script I use to configure a new computer (macOS / Linux / windows WSL2), this will install several packages and config scripts depending on the OS, and switch to using `zsh` and use `zi` plugin manager, installs `nvim` if available etc.: https://github.com/iandol/dotfiles/blob/master/bootstrap.sh 
 
 # Setting up Ubuntu 22.04
 For Ubuntu, we are using the LTS version of Ubuntu as the default. We already have a fresh 22.04 install cloned and available on the NAS, you can use Clonezilla to restore. 

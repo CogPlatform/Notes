@@ -8,7 +8,7 @@ I always install at least:
 
 ```
 sudo apt -my install build-essential zsh git gparted vim curl file mc
-sudo apt -my install freeglut3  mesa-utils
+sudo apt -my install freeglut3  mesa-utils exfatprogs
 sudo apt -my install p7zip-full p7zip-rar libunrar5 
 sudo apt -my gawk figlet jq ansiweather htop 
 sudo apt -my install libdc1394-25 libraw1394-11

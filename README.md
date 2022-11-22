@@ -12,6 +12,7 @@ sudo apt -my install freeglut3  mesa-utils exfatprogs
 sudo apt -my install p7zip-full p7zip-rar libunrar5 
 sudo apt -my gawk figlet jq ansiweather htop 
 sudo apt -my install libdc1394-25 libraw1394-11
+sudo apt -my install synaptic
 ```
 
 Next install MATLAB 2022b (or later), **DO NOT use `sudo` to install**. You only need a few toolboxes, here are my recommendations:
@@ -88,7 +89,20 @@ We will use Python for general purpose development, and for the Neural network t
 
 ## MATLAB and Intel GPUs
 
-Mario recommends:
+See this recent post: https://psychtoolbox.discourse.group/t/matlab-starts-with-warning-after-psychtoolbox-installation/4661/2
+
+Run MATLAB using: 
+```
+MESA_GL_VERSION_OVERRIDE=3.0 matlab
+```
+
+or edit `/usr/share/applications/matlab.desktop` to
+
+```
+Exec=env MESA_GL_VERSION_OVERRIDE=3.0 matlab -desktop
+```
+
+Previous problems: Mario recommends:
 
 ```
 echo "-Djogl.disable.openglarbcontext=1" | sudo tee /usr/local/MATLAB/R2020b/bin/glnxa64/java.opts

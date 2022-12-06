@@ -3,6 +3,25 @@
 ## OS Options ##
 The standard OS is 32bit (armhf) Raspian based off of Debian Buster 10. It is tiny and light, but Octave is at V4.4. Ubuntu 20.10 64bit (aarch64) is also available and has a more recent Octave (5.1) available. Both support Neurodebian, but custom PTB installs require a 32bit OS, so Raspian is preferred for this. At the moment there are **no** 64bit builds of PTB for RPi, so for PTB we must use Raspian.... https://downloads.raspberrypi.org/raspios_full_armhf/images/raspios_full_armhf-2021-01-12/2021-01-11-raspios-buster-armhf-full.zip
 
+## Building on 64bit (work-in-progress)
+
+
+Deps:
+
+```
+sudo apt install -y freeglut3-dev libglfw3-dev libglu1-mesa-dev libxi-dev freenect \
+  libpciaccess-dev libxxf86vm-dev libxcb-dri3-dev libxcb-present-dev \
+  libxcomposite-dev libxml2-dev libasound2-dev 
+```
+
+For Screen need to add `-I/usr/lib/aarch64-linux-gnu/glib-2.0/include/` to mex or:
+
+```
+sudo ln -s /usr/lib/aarch64-linux-gnu/glib-2.0/include/glibconfig.h /usr/include/glib-2.0/
+```
+
+To build GPIO need this package not available in apt: https://github.com/WiringPi/WiringPi/releases
+
 ## Installing PTB ##
 
 See https://github.com/kleinerm/Psychtoolbox-3/blob/master/Psychtoolbox/PsychDocumentation/RaspberryPiSetup.m for the up-to-date details:

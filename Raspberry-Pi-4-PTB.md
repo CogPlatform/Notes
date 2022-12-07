@@ -1,12 +1,13 @@
 # Raspberry Pi 4 setup #
 
 ## OS Options ##
-The standard OS is 32bit (armhf) Raspian based off of Debian Buster 10. It is tiny and light, but Octave is at V4.4. Ubuntu 20.10 64bit (aarch64) is also available and has a more recent Octave (5.1) available. Both support Neurodebian, but custom PTB installs require a 32bit OS, so Raspian is preferred for this. At the moment there are **no** 64bit builds of PTB for RPi, so for PTB we must use Raspian.... https://downloads.raspberrypi.org/raspios_full_armhf/images/raspios_full_armhf-2021-01-12/2021-01-11-raspios-buster-armhf-full.zip
+The standard OS is 32bit (armhf) Raspian based off of Debian Bullseye 11. It is tiny and light, but Octave is at V6.3. There is also a 64bit build, which works well. Ubuntu 22.04 64bit (aarch64) is also available. Both support Neurodebian, but a custom PTB install require a 32bit OS (Mario only builds 32bit mex files), so Raspian 32bit is preferred for this. At the moment there are **no** 64bit builds of PTB for RPi, so for PTB we must build ourselves:
 
 ## Building on 64bit (work-in-progress)
 
+see https://github.com/iandol/Psychtoolbox-3/tree/arm64
 
-Deps:
+Dependencies:
 
 ```
 sudo apt install -y freeglut3-dev libglfw3-dev libglu1-mesa-dev libxi-dev freenect \
@@ -14,38 +15,35 @@ sudo apt install -y freeglut3-dev libglfw3-dev libglu1-mesa-dev libxi-dev freene
   libxcomposite-dev libxml2-dev libasound2-dev 
 ```
 
-For Screen need to add `-I/usr/lib/aarch64-linux-gnu/glib-2.0/include/` to mex or:
+To build Screen need to add `-I/usr/lib/aarch64-linux-gnu/glib-2.0/include/` to mex or:
 
 ```
 sudo ln -s /usr/lib/aarch64-linux-gnu/glib-2.0/include/glibconfig.h /usr/include/glib-2.0/
 ```
 
-To build GPIO need this package not available in apt: https://github.com/WiringPi/WiringPi/releases
+To build/use GPIO need this package not available in apt: https://github.com/WiringPi/WiringPi/releases
+
+Currently with the mex files built we have extensive performance issues with e.g. VBLSyncTest. So 32bit is still a beter option.
 
 ## Installing PTB ##
 
-See https://github.com/kleinerm/Psychtoolbox-3/blob/master/Psychtoolbox/PsychDocumentation/RaspberryPiSetup.m for the up-to-date details:
+See https://github.com/kleinerm/Psychtoolbox-3/blob/master/Psychtoolbox/PsychDocumentation/RaspberryPiSetup.m for the official up-to-date details:
+
+### Neurodebian
 
 The easiest way is to first install PTB via Neurodebian (supports Raspian and Ubuntu) so we can get all the dependencies solved easily. 
 
 Raspian 32bit:
 ```
-wget -O- http://neuro.debian.net/lists/buster.cn-hf.full | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
-sudo apt-key adv --recv-keys --keyserver hkp://pool.sks-keyservers.net:80 0xA5D32F012649A5A9
+wget -O- http://neuro.debian.net/lists/bullseye.cn-bj1.full | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
+sudo apt-key adv --recv-keys --keyserver hkps://keyserver.ubuntu.com 0xA5D32F012649A5A9
 sudo apt-get update
 ```
 
-USTC Ubuntu 20.10:
+Tsinghua Ubuntu 22.04:
 ```
-get -O- http://neuro.debian.net/lists/groovy.cn-hf.full | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
-sudo apt-key adv --recv-keys --keyserver hkp://pool.sks-keyservers.net:80 0xA5D32F012649A5A9
-sudo apt-get update
-```
-
-Tsinghua Ubuntu 20.10:
-```
-wget -O- http://neuro.debian.net/lists/groovy.cn-bj1.full | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
-sudo apt-key adv --recv-keys --keyserver hkp://pool.sks-keyservers.net:80 0xA5D32F012649A5A9
+wget -O- http://neuro.debian.net/lists/jammy.cn-bj1.full | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
+sudo apt-key adv --recv-keys --keyserver hkps://keyserver.ubuntu.com 0xA5D32F012649A5A9
 sudo apt-get update
 ```
 
@@ -88,7 +86,13 @@ git checkout 1.6.1 # omit to build the master branch
 
 ## Updated PTB ##
 
-Download the [latest PTB as a ZIP file](https://github.com/kleinerm/Psychtoolbox-3/archive/master.zip) and create a `~/Code/Psychtoolbox` folder for it. Create an `~/.octaverc` file with the following:
+In a terminal type: sudo raspi-config; Navigate to Advanced Options > Compositor > xcompmgr composition manager; Choose No; Reboot the Raspberry Pi.
+
+```
+sudo apt install -y liboctave-dev gamemode freeglut3
+```
+
+Download the [latest PTB as a ZIP file](https://github.com/kleinerm/Psychtoolbox-3/archive/master.zip) or use `git` and create a `~/Code/Psychtoolbox` folder for it. Create an `~/.octaverc` file with the following:
 
 ```
 warning('off', 'Octave:shadowed-function');
@@ -98,9 +102,13 @@ more off;
 
 First, it is important to run Octave from command-line via `octave --no-gui` and then `cd ~/Code/Psychtoolbox` and run `SetupPsychToolbox`. Then you can use the GUI as normal...
 
-## Octave 5.2
+### libdc1394
 
-You can get a slightly newer Octave in the buster-backports repo: https://backports.debian.org/Instructions/
+Need a .22 linked to the current .25:
+
+```
+sudo ln -s /usr/lib/arm-linux-gnueabihf/libdc1394.so.25 /usr/lib/arm-linux-gnueabihf/libdc1394.so.22
+```
 
 ## Latest MESA
 

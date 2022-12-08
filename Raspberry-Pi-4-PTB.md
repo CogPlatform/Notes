@@ -146,7 +146,7 @@ https://octave.sourceforge.io/instrument-control/index.html
 
 ## Backing up the SD card
 
-Backing up can be dome simply using `dd`. First insert a USB backup disk, then check the disk names `lsblk -p`:
+Backing up can be dome simply using `dd`. You can do it live, but better is on a different machine.For live, frst insert a USB backup disk, then check the disk names `lsblk -p`:
 
 ```
 cogpi@cogpi-desktop:~$ lsblk -p
@@ -177,7 +177,7 @@ NAME             MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
 `/dev/mmcblk0` is the booted SD card, `/dev/sdb2` mounted as `/media/cogpi/Clones` is our backup destination.
 
 ```
-sudo dd bs=4M if=/dev/mmcblk0 of=/media/cogpi/Clones conv=fsync status=progress
+sudo dd bs=4M if=/dev/mmcblk0 of=/media/cogpi/Clones/MyImage.img conv=fsync status=progress
 ```
 
 Once completed, shrink the image using [PiShrink](https://github.com/Drewsif/PiShrink). This can be compressed. 

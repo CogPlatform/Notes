@@ -98,6 +98,8 @@ Download the [latest PTB as a ZIP file](https://github.com/kleinerm/Psychtoolbox
 warning('off', 'Octave:shadowed-function');
 graphics_toolkit('gnuplot');
 more off;
+setenv('LC_CTYPE','en_US.UTF-8');setenv('LC_ALL','en_US.UTF-8')
+Screen('Preference','VisualDebugLevel',3);
 ```
 
 First, it is important to run Octave from command-line via `octave --no-gui` and then `cd ~/Code/Psychtoolbox` and run `SetupPsychToolbox`. Then you can use the GUI as normal...

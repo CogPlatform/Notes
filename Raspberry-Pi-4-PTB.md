@@ -182,7 +182,11 @@ NAME             MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
 sudo dd bs=4M if=/dev/mmcblk0 of=/media/cogpi/Clones/MyImage.img conv=fsync status=progress
 ```
 
-Once completed, shrink the image using [PiShrink](https://github.com/Drewsif/PiShrink). This can be compressed. 
+Once completed, shrink the image using [PiShrink](https://github.com/Drewsif/PiShrink). This can be compressed:
+
+```
+sudo pishrink.sh -v -z -a -p MyImage.img
+```
 
 To restore it read https://www.pragmaticlinux.com/2020/12/how-to-clone-your-raspberry-pi-sd-card-in-linux/
 

@@ -1,7 +1,7 @@
 # Raspberry Pi 4 setup #
 
 ## OS Options ##
-The standard OS is 32bit (armhf) Raspian based off of Debian Bullseye 11. It is tiny and light, but Octave is at V6.3. There is also a 64bit build, which works well. Ubuntu 22.04 64bit (aarch64) is also available. Both support Neurodebian, but a custom PTB install require a 32bit OS (Mario only builds 32bit mex files), so Raspian 32bit is preferred for this. At the moment there are **no** 64bit builds of PTB for RPi, so for PTB we must build ourselves:
+The standard OS is 32bit (armhf) Raspian based off of Debian Bullseye 11. It is tiny and light, but Octave is at V6.2. There is also a 64bit build, which works well. Ubuntu 22.04 64bit (aarch64) is also available. Both support Neurodebian, but a custom PTB install require a 32bit OS (Mario only builds 32bit mex files), so Raspian 32bit is preferred for this. At the moment there are **no** 64bit builds of PTB for RPi, so for PTB we must build ourselves:
 
 ## Building on 64bit (work-in-progress)
 
@@ -12,7 +12,7 @@ Dependencies:
 ```
 sudo apt install -y freeglut3-dev libglfw3-dev libglu1-mesa-dev libxi-dev freenect \
   libpciaccess-dev libxxf86vm-dev libxcb-dri3-dev libxcb-present-dev \
-  libxcomposite-dev libxml2-dev libasound2-dev 
+  libxcomposite-dev libxml2-dev libasound2-dev liboctave-dev
 ```
 
 To build Screen need to add `-I/usr/lib/aarch64-linux-gnu/glib-2.0/include/` to mex or:
@@ -21,19 +21,21 @@ To build Screen need to add `-I/usr/lib/aarch64-linux-gnu/glib-2.0/include/` to 
 sudo ln -s /usr/lib/aarch64-linux-gnu/glib-2.0/include/glibconfig.h /usr/include/glib-2.0/
 ```
 
-To build/use GPIO need this package not available in apt: https://github.com/WiringPi/WiringPi/releases
+To build/use GPIO need this package not available anymore in apt: https://github.com/WiringPi/WiringPi/releases
 
-Currently with the mex files built we have extensive performance issues with e.g. VBLSyncTest. So 32bit is still a beter option.
+With most mex files rebuilt, performance is at least equivalent to 32bit builds!
 
 ## Installing PTB ##
 
-See https://github.com/kleinerm/Psychtoolbox-3/blob/master/Psychtoolbox/PsychDocumentation/RaspberryPiSetup.m for the official up-to-date details:
+See https://github.com/kleinerm/Psychtoolbox-3/blob/master/Psychtoolbox/PsychDocumentation/RaspberryPiSetup.m for the official up-to-date details
+
+With 64bit mex files rebuild, use the same github repo, running `SetupPsychToolbox` etc.
 
 ### Neurodebian
 
-The easiest way is to first install PTB via Neurodebian (supports Raspian and Ubuntu) so we can get all the dependencies solved easily. 
+You can install PTB via Neurodebian (supports Raspian and Ubuntu) which solves dependencies easily. 
 
-Raspian 32bit:
+Raspian:
 ```
 wget -O- http://neuro.debian.net/lists/bullseye.cn-bj1.full | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
 sudo apt-key adv --recv-keys --keyserver hkps://keyserver.ubuntu.com 0xA5D32F012649A5A9
@@ -49,31 +51,8 @@ sudo apt-get update
 
 Then `sudo apt install octave-psychtoolbox-3` which will resolve all dependencies for you. However, this installs an ancient version of PTB. Recent version of PTB only have 32bit mex builds so cannot work with Ubuntu.  Stick to Raspian for the moment...
 
-## Config and Workarounds ##
-
-There is currently a MESA bug, and a current workaround is to make an `/etc/X11/xorg.conf` file to overrride the bug: https://gitlab.freedesktop.org/mesa/mesa/-/issues/3601
-
-```
-Section "ServerFlags"
-  Option "Debug" "None"
-EndSection
-```
-
-You should edit `\boot\config.txt` to make sure it uses the real open-source drivers, and not fake kms one `dtoverlay=vc4-fkms-v3d`:
-
-```
-[pi4]
-# Enable DRM VC4 V3D driver on top of the dispmanx display stack
-dtoverlay=vc4-kms-v3d-pi4
-max_framebuffers=2
-gpu_mem=256
-
-[all]
-gpu_mem=256
-```
-
 ### Gamemode ###
-This allows PTB's `Priority` command to work better on Linux. Install from https://github.com/FeralInteractive/gamemode like so:
+This allows PTB's `Priority` command to work better on Linux. **Install from APT (from Bullseye at least)**, or for older systems from  https://github.com/FeralInteractive/gamemode like so:
 
 ```
 sudo apt install meson libsystemd-dev pkg-config ninja-build git libdbus-1-dev libinih-dev
@@ -84,7 +63,7 @@ git checkout 1.6.1 # omit to build the master branch
 ./bootstrap.sh
 ```
 
-## Updated PTB ##
+## Running PTB ##
 
 In a terminal type: sudo raspi-config; Navigate to Advanced Options > Compositor > xcompmgr composition manager; Choose No; Reboot the Raspberry Pi.
 
@@ -144,7 +123,28 @@ Octave has a pythonic python bridge and there are several libraries to call GPIO
 
 https://octave.sourceforge.io/instrument-control/index.html
 
+## Older Config and Workarounds ##
 
+There is currently a MESA bug, and a current workaround is to make an `/etc/X11/xorg.conf` file to overrride the bug: https://gitlab.freedesktop.org/mesa/mesa/-/issues/3601
+
+```
+Section "ServerFlags"
+  Option "Debug" "None"
+EndSection
+```
+
+You should edit `\boot\config.txt` to make sure it uses the real open-source drivers, and not fake kms one `dtoverlay=vc4-fkms-v3d`:
+
+```
+[pi4]
+# Enable DRM VC4 V3D driver on top of the dispmanx display stack
+dtoverlay=vc4-kms-v3d-pi4
+max_framebuffers=2
+gpu_mem=256
+
+[all]
+gpu_mem=256
+```
 
 ## Backing up the SD card
 

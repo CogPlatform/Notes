@@ -93,10 +93,10 @@ sudo ln -s /usr/lib/arm-linux-gnueabihf/libdc1394.so.25 /usr/lib/arm-linux-gnuea
 
 ## Latest MESA
 
-You can update the GPU drivers. The easiest way is to use precompiled ones, see https://www.raspberrypi.org/forums/viewtopic.php?f=67&t=293361 
+You can update the GPU drivers. The easiest way is to use precompiled ones, see https://www.raspberrypi.org/forums/viewtopic.php?f=67&t=293361 and https://github.com/smartavionics/Cura/releases in particular.
 
 ```
-LD_LIBRARY_PATH=/opt/mesa/lib/arm-linux-gnueabihf octave --gui
+LD_LIBRARY_PATH=/opt/mesa/lib/aarch64-linux-gnu octave --gui
 ```
 Or set `LD_LIBRARY_PATH` in your `.zshrc` to use as the default...
 

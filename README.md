@@ -161,6 +161,23 @@ sudo systemctl stop cups-browsed
 sudo systemctl disable cups-browsed
 ```
 
+## Allowing Gnome to connect to SMB2 Shares
+
+Trying to connect to smb://COG-SERVER gives an error, if so then run this:
+
+```
+kill `pidof gvfsd-smb-browse`
+```
+
+And try agin, it works, see https://bugs.launchpad.net/gvfs/+bug/1828107 -- https://askubuntu.com/questions/1179576/ubuntu-18-04-problem-to-connect-to-windows-10-smb-share
+
+Or mount directly:
+
+```
+mkdir -p /media/cog/COGS
+sudo mount -t smb3 //10.10.47.188/Ian /media/cog/COGS -o username=Ian,password=XXX,uid=cog5
+```
+
 ## WSL and git line endings:
 https://www.scivision.co/git-line-endings-windows-cygwin-wsl/
 make a `.gitattributes` file then `git config --global core.autocrlf input` & `git config --global core.eol lf`

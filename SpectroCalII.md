@@ -18,3 +18,5 @@ c.port = '/dev/ttyUSB0'; % serial port to use
 
 c.runAll();
 ```
+
+You will get a plot of the raw and corrected values. To get a simple gamma value see `c.displayGamma`, the full fitted table is in `c.finalCLUT`. Run `c.plot` at any time to regenerate the gamma table plots.

@@ -20,7 +20,7 @@ pip install --upgrade pip
 python -m pip install -r requirements.txt
 python pupil_src/main.py capture
 ```
-Note I use my own commands like `pya` to activate the `venv`, if you are not using `elvish` shell you must use the equivalent for `zsh` or `bash.
+Note I use my own elvish commands like `pya` to activate the `venv`, if you are not using the `elvish` shell you must use the equivalent for `zsh` or `bash`.
 
 # How to talk to the Core
 

@@ -1,6 +1,6 @@
 # Pupil Labs Core
 
-Here are some set up notes for the Pupil labs core. They require to install interfaces for zeromq and msgpack. For zeromq you can clone this repo and add the lib folder to the MATLAB path.
+Here are some set up notes for the Pupil labs core. They require to install interfaces for zeromq and msgpack. For zeromq you can clone this repo and add the lib folder to the MATLAB path (I've added the compiled mex files to the repo so no need to compile):
 
 https://github.com/iandol/matlab-zmq
 

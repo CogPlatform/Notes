@@ -1,9 +1,13 @@
 # Raspberry Pi 4 setup #
 
 ## OS Options ##
-The standard OS is 32bit (armhf) Raspian based off of Debian Bullseye 11. It is tiny and light, but Octave is at V6.2. There is also a 64bit build, which works well. Ubuntu 22.04 64bit (aarch64) is also available. Both support Neurodebian, but a custom PTB install require a 32bit OS (Mario only builds 32bit mex files), so Raspian 32bit is preferred for this. At the moment there are **no** 64bit builds of PTB for RPi, so for PTB we must build ourselves:
+The standard OS is 32bit (armhf) Raspian based off of Debian Bullseye 11. It is tiny and light, but Octave is at V6.2. There is also a 64bit build, which works well. Ubuntu 22.04 64bit (aarch64) is also available. Both support Neurodebian, but a custom PTB install require a 32bit OS (Mario only builds 32bit mex files), so Raspian 32bit is preferred for this. At the moment there are **no** 64bit builds of PTB for RPi, so for PTB we must build ourselves.
 
-## Building on 64bit (work-in-progress)
+## Compute Module 4
+
+We've found these industrial modules https://docs.edatec.cn/cm4-nano that use eMMC and the compute module 4 (CM4), currently cheaper, with a nice case and more features than RPi4. To burn the OS, you can use rpiboot ([github](https://github.com/raspberrypi/usbboot)) or `sudo apt install rpiboot` and then run `rpiboot` to mount the eMMC as a disk via a USB cable (you must join the J55 jumper pins). Then use RPi Imager (`snap install rpi-imager`) to burn the OS (it can set up password / WiFi etc. very cool).
+
+## Building PTB on 64bit (work-in-progress)
 
 see https://github.com/iandol/Psychtoolbox-3/tree/arm64
 
@@ -23,47 +27,11 @@ sudo ln -s /usr/lib/aarch64-linux-gnu/glib-2.0/include/glibconfig.h /usr/include
 
 To build/use GPIO need this package not available anymore in apt: https://github.com/WiringPi/WiringPi/releases
 
-With most mex files rebuilt, performance is at least equivalent to 32bit builds!
+With most mex files rebuilt, performance is at least equivalent (and theoretically better) to 32bit builds!
 
 ## Installing PTB ##
 
-See https://github.com/kleinerm/Psychtoolbox-3/blob/master/Psychtoolbox/PsychDocumentation/RaspberryPiSetup.m for the official up-to-date details
-
-With 64bit mex files rebuild, use the same github repo, running `SetupPsychToolbox` etc.
-
-### Neurodebian
-
-You can install PTB via Neurodebian (supports Raspian and Ubuntu) which solves dependencies easily. 
-
-Raspian:
-```
-wget -O- http://neuro.debian.net/lists/bullseye.cn-bj1.full | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
-sudo apt-key adv --recv-keys --keyserver hkps://keyserver.ubuntu.com 0xA5D32F012649A5A9
-sudo apt-get update
-```
-
-Tsinghua Ubuntu 22.04:
-```
-wget -O- http://neuro.debian.net/lists/jammy.cn-bj1.full | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
-sudo apt-key adv --recv-keys --keyserver hkps://keyserver.ubuntu.com 0xA5D32F012649A5A9
-sudo apt-get update
-```
-
-Then `sudo apt install octave-psychtoolbox-3` which will resolve all dependencies for you. However, this installs an ancient version of PTB. Recent version of PTB only have 32bit mex builds so cannot work with Ubuntu.  Stick to Raspian for the moment...
-
-### Gamemode ###
-This allows PTB's `Priority` command to work better on Linux. **Install from APT (from Bullseye at least)**, or for older systems from  https://github.com/FeralInteractive/gamemode like so:
-
-```
-sudo apt install meson libsystemd-dev pkg-config ninja-build git libdbus-1-dev libinih-dev
-cd ~/Code
-git clone https://github.com/FeralInteractive/gamemode.git
-cd gamemode
-git checkout 1.6.1 # omit to build the master branch
-./bootstrap.sh
-```
-
-## Running PTB ##
+See https://github.com/kleinerm/Psychtoolbox-3/blob/master/Psychtoolbox/PsychDocumentation/RaspberryPiSetup.m for the official details. As we are using our own 64bit fork, use the same github repo and branch mentioned above.
 
 In a terminal type: sudo raspi-config; Navigate to Advanced Options > Compositor > xcompmgr composition manager; Choose No; Reboot the Raspberry Pi.
 
@@ -71,7 +39,7 @@ In a terminal type: sudo raspi-config; Navigate to Advanced Options > Compositor
 sudo apt install -y liboctave-dev gamemode freeglut3
 ```
 
-Download the [latest PTB as a ZIP file](https://github.com/kleinerm/Psychtoolbox-3/archive/master.zip) or use `git` and create a `~/Code/Psychtoolbox` folder for it. Create an `~/.octaverc` file with the following:
+Create an `~/.octaverc` file with the following:
 
 ```
 warning('off', 'Octave:shadowed-function');
@@ -81,7 +49,7 @@ setenv('LC_CTYPE','en_US.UTF-8');setenv('LC_ALL','en_US.UTF-8')
 Screen('Preference','VisualDebugLevel',3);
 ```
 
-First, it is important to run Octave from command-line via `octave --no-gui` and then `cd ~/Code/Psychtoolbox` and run `SetupPsychToolbox`. Then you can use the GUI as normal...
+First, it is important to run Octave from command-line via `octave --no-gui` then `cd ~/Code/Psychtoolbox` and run `SetupPsychToolbox`. Then you can use the GUI as normal...
 
 ### libdc1394
 
@@ -101,6 +69,39 @@ LD_LIBRARY_PATH=/opt/mesa/lib/aarch64-linux-gnu octave --gui
 Or set `LD_LIBRARY_PATH` in your `.zshrc` to use as the default...
 
 You can build Mesa yourself from source: https://qengineering.eu/install-vulkan-on-raspberry-pi.html
+
+
+### OLD Option: Neurodebian
+
+You could install PTB via Neurodebian (supports Raspian and Ubuntu) which solves dependencies easily. 
+
+Raspian:
+```
+wget -O- http://neuro.debian.net/lists/bullseye.cn-bj1.full | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
+sudo apt-key adv --recv-keys --keyserver hkps://keyserver.ubuntu.com 0xA5D32F012649A5A9
+sudo apt-get update
+```
+
+Tsinghua Ubuntu 22.04:
+```
+wget -O- http://neuro.debian.net/lists/jammy.cn-bj1.full | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
+sudo apt-key adv --recv-keys --keyserver hkps://keyserver.ubuntu.com 0xA5D32F012649A5A9
+sudo apt-get update
+```
+
+Then `sudo apt install octave-psychtoolbox-3` which will resolve all dependencies for you. However, this installs an ancient version of PTB.
+
+### Gamemode ###
+This allows PTB's `Priority` command to work better on Linux. **Install directly from APT (from Bullseye at least)**, or for older systems from  https://github.com/FeralInteractive/gamemode like so:
+
+```
+sudo apt install meson libsystemd-dev pkg-config ninja-build git libdbus-1-dev libinih-dev
+cd ~/Code
+git clone https://github.com/FeralInteractive/gamemode.git
+cd gamemode
+git checkout 1.6.1 # omit to build the master branch
+./bootstrap.sh
+```
 
 ## Problems
 
@@ -146,7 +147,7 @@ gpu_mem=256
 gpu_mem=256
 ```
 
-## Backing up the SD card
+# Backing up the SD card
 
 Backing up can be dome simply using `dd`. You can do it live, but better is on a different machine.For live, frst insert a USB backup disk, then check the disk names `lsblk -p`:
 

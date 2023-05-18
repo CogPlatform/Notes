@@ -1,15 +1,17 @@
 # Raspberry Pi 4 setup #
 
-## OS Options ##
-The standard OS is 32bit (armhf) Raspian based off of Debian Bullseye 11. It is tiny and light, but Octave is at V6.2. There is also a 64bit build, which works well. Ubuntu 22.04 64bit (aarch64) is also available. Both support Neurodebian, but a custom PTB install require a 32bit OS (Mario only builds 32bit mex files), so Raspian 32bit is preferred for this. At the moment there are **no** 64bit builds of PTB for RPi, so for PTB we must build ourselves.
-
 ## Compute Module 4
 
 We've found these industrial modules https://docs.edatec.cn/cm4-nano that use eMMC and the compute module 4 (CM4), currently cheaper, with a nice case and more features than RPi4. To burn the OS, you can use rpiboot ([github](https://github.com/raspberrypi/usbboot)) or `sudo apt install rpiboot` and then run `rpiboot` to mount the eMMC as a disk via a USB cable (you must join the J55 jumper pins). Then use RPi Imager (`snap install rpi-imager`) to burn the OS (it can set up password / WiFi etc. very cool).
 
+## OS Options
+The standard OS is 32bit (armhf) based off of Debian Bullseye 11. It is tiny and light, with Octave at V6.2. There is also a 64bit (aarch64) OS, which works well (and should be faster, utilise RAM better etc.). Ubuntu 22.04 64bit (aarch64) is also available. Both support Neurodebian, but a  standard PTB install require a 32bit OS (Mario only builds 32bit mex files), so Raspian 32bit is preferred for this. 
+
+At the moment there are **no** 64bit builds of PTB for RPi, but we can build ourselves.
+
 ## Building PTB on 64bit (work-in-progress)
 
-see https://github.com/iandol/Psychtoolbox-3/tree/arm64
+See https://github.com/iandol/Psychtoolbox-3/tree/arm64 for built mex files you can use and the changes needed to build them.
 
 Dependencies:
 
@@ -29,9 +31,22 @@ To build/use GPIO need this package not available anymore in apt: https://github
 
 With most mex files rebuilt, performance is at least equivalent (and theoretically better) to 32bit builds!
 
-## Installing PTB ##
+## Up-to-date Octave (currently 8.2)
 
-See https://github.com/kleinerm/Psychtoolbox-3/blob/master/Psychtoolbox/PsychDocumentation/RaspberryPiSetup.m for the official details. As we are using our own 64bit fork, use the same github repo and branch mentioned above.
+Octave is really old in Debian, and it is not so easy to build. Using flatpak cannot work with PTB due to the sandbox. However `conda`, or more specifically `microconda` can be used to build a custom environment will the latest octave and all dependencies easily. Conda used to be for Python but now is a general and flexible package manager for just about anything! See https://mamba.readthedocs.io/en/latest/installation.html for details, but quickly you can do this:
+
+```
+curl micro.mamba.pm/install.sh | zsh
+export MAMBA_ROOT_PREFIX=/some/prefix  # optional, defaults to ~/micromamba
+eval "$(~/.local/bin/micromamba shell hook -s posix)"
+micromamba create -n octave
+micromamba activate octave
+micromamba install -c conda-forge octave gstreamer gst-plugins-bad
+```
+
+## Installing PTB
+
+See https://github.com/kleinerm/Psychtoolbox-3/blob/master/Psychtoolbox/PsychDocumentation/RaspberryPiSetup.m for the official details. As we are using our own 64bit fork, use the github repo and branch mentioned above to install the custom 64bit build.
 
 In a terminal type: sudo raspi-config; Navigate to Advanced Options > Compositor > xcompmgr composition manager; Choose No; Reboot the Raspberry Pi.
 

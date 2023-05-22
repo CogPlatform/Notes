@@ -162,9 +162,9 @@ gpu_mem=256
 gpu_mem=256
 ```
 
-# Backing up the SD card
+# Backing up the SD/eMMC system
 
-Backing up can be dome simply using `dd`. You can do it live, but better is on a different machine.For live, frst insert a USB backup disk, then check the disk names `lsblk -p`:
+Backing up can be dome simply using `dd`. You can do it live, but better is on a different machine.For live, first insert a USB backup disk, then check the disk names `lsblk -p`:
 
 ```
 cogpi@cogpi-desktop:~$ lsblk -p
@@ -195,17 +195,21 @@ NAME             MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
 `/dev/mmcblk0` is the booted SD card, `/dev/sdb2` mounted as `/media/cogpi/Clones` is our backup destination.
 
 ```
-sudo dd bs=4M if=/dev/mmcblk0 of=/media/cogpi/Clones/MyImage.img conv=fsync status=progress
+sudo dd if=/dev/mmcblk0 of=/media/cogpi/Clones/MyImage.img bs=10M  conv=fsync status=progress
 ```
 
 Once completed, shrink the image using [PiShrink](https://github.com/Drewsif/PiShrink). This can be compressed:
 
 ```
-sudo pishrink.sh -v -z -a -p MyImage.img
+sudo pishrink.sh -v -z -a MyImage.img
 ```
 
 To restore it read https://www.pragmaticlinux.com/2020/12/how-to-clone-your-raspberry-pi-sd-card-in-linux/
 
+But basically, reverse the command:
 
+```
+sudo dd if=/media/cogpi/Clones/CM4-2023-05-22.img of=/dev/mmcblk0 bs=10M status=progress
+```
 
 

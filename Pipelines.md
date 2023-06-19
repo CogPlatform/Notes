@@ -2,7 +2,7 @@
 
 For our social pair task, we want to build a data pipeline rather than the usual ad-hoc data storage. 
 
-Here are some links. The idea is to use either Datajoint or Alyx and follow the NWB specs as much as possible:
+Here are some links. The idea is to use either Alyx + DataJoint or Datajoint alone and follow the NWB specs as much as possible:
 
 * Datajoint: https://datajoint.com/docs/core/
 * Alyx: https://alyx.readthedocs.io/en/latest/

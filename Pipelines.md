@@ -12,6 +12,8 @@ Here are some links. The idea is to use either Alyx + DataJoint or Datajoint alo
 
 This paper for a recent update on IBL and its solutions (alyx etc.): [A modular architecture for organizing, processing and sharing neurophysiology data - Nature Methods 2023](https://www.nature.com/articles/s41592-022-01742-6?)
 
+![fig](https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41592-022-01742-6/MediaObjects/41592_2022_1742_Fig1_HTML.png?as=webp)
+
 
 ## Other links:
 

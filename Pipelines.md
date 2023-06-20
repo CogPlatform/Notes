@@ -17,5 +17,6 @@ This paper for a recent update on IBL and its solutions (alyx etc.): [A modular 
 
 ## Other links:
 
+* https://neurosciencecommunity.nature.com/posts/data-architecture-for-collaborative-neuroscience
 * https://open-neuroscience.com
 * https://www.sciencedirect.com/science/article/pii/S2772528622000346

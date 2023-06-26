@@ -41,8 +41,9 @@ export MAMBA_ROOT_PREFIX=/some/prefix  # optional, defaults to ~/micromamba
 eval "$(~/.local/bin/micromamba shell hook -s posix)"
 micromamba create -n octave
 micromamba activate octave
-micromamba install -c conda-forge octave gstreamer gst-plugins-bad
+micromamba install -c conda-forge octave gstreamer gst-plugins-bad compilers c-compiler cxx-compiler
 ```
+The compilers are needed for installing octave packages like instrument-control...
 
 ## Installing PTB
 

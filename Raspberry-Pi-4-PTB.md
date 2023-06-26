@@ -31,7 +31,7 @@ To build/use GPIO need this package not available anymore in apt: https://github
 
 With most mex files rebuilt, performance is at least equivalent (and theoretically better) to 32bit builds!
 
-## Up-to-date Octave (currently 8.2)
+## Up-to-date Octave (currently 8.2) [optional]
 
 **Older Octave V6.4 can run PTB as well, so this step is optional!**
 
@@ -77,7 +77,7 @@ Need a .22 linked to the current .25:
 sudo ln -s /usr/lib/arm-linux-gnueabihf/libdc1394.so.25 /usr/lib/arm-linux-gnueabihf/libdc1394.so.22
 ```
 
-## Latest MESA
+## Latest MESA [optional]
 
 You can update the GPU drivers. The easiest way is to use precompiled ones, see https://www.raspberrypi.org/forums/viewtopic.php?f=67&t=293361 and https://github.com/smartavionics/Cura/releases in particular.
 
@@ -109,7 +109,7 @@ sudo apt-get update
 
 Then `sudo apt install octave-psychtoolbox-3` which will resolve all dependencies for you. However, this installs an ancient version of PTB.
 
-### Gamemode ###
+### Gamemode [legacy OS only] ###
 This allows PTB's `Priority` command to work better on Linux. **Install directly from APT (from Bullseye at least)**, or for older systems from  https://github.com/FeralInteractive/gamemode like so:
 
 ```

@@ -7,29 +7,11 @@ We've found these industrial modules https://docs.edatec.cn/cm4-nano that use eM
 ## OS Options
 The standard OS is 32bit (armhf) based off of Debian Bullseye 11. It is tiny and light, with Octave at V6.2. There is also a 64bit (aarch64) OS, which works well (and should be faster, utilise RAM better etc.). Ubuntu 22.04 64bit (aarch64) is also available. Both support Neurodebian, but a  standard PTB install require a 32bit OS (Mario only builds 32bit mex files), so Raspian 32bit is preferred for this. 
 
-At the moment there are **no** 64bit builds of PTB for RPi, but we can build ourselves.
+At the moment there are **no** 64bit builds of PTB for RPi, BUT we have a fork where we have the 64bit ARM mex files (see below). So the current setup:
 
-## Building PTB on 64bit (work-in-progress)
-
-See https://github.com/iandol/Psychtoolbox-3/tree/arm64 for built mex files you can use and the changes needed to build them.
-
-Dependencies:
-
-```
-sudo apt install -y freeglut3-dev libglfw3-dev libglu1-mesa-dev libxi-dev freenect \
-  libpciaccess-dev libxxf86vm-dev libxcb-dri3-dev libxcb-present-dev \
-  libxcomposite-dev libxml2-dev libasound2-dev liboctave-dev
-```
-
-To build Screen need to add `-I/usr/lib/aarch64-linux-gnu/glib-2.0/include/` to mex or:
-
-```
-sudo ln -s /usr/lib/aarch64-linux-gnu/glib-2.0/include/glibconfig.h /usr/include/glib-2.0/
-```
-
-To build/use GPIO need this package not available anymore in apt: https://github.com/WiringPi/WiringPi/releases
-
-With most mex files rebuilt, performance is at least equivalent (and theoretically better) to 32bit builds!
+* Latest Raspberry Pi OS 64bit
+* Octave from Debian (V6.4) and can also install OCtave V8.2 via `micromamba`
+* Install PTB via github 64bit ARM fork.
 
 ## Up-to-date Octave (currently 8.2) [optional]
 
@@ -88,6 +70,27 @@ Or set `LD_LIBRARY_PATH` in your `.zshrc` to use as the default...
 
 You can build Mesa yourself from source: https://qengineering.eu/install-vulkan-on-raspberry-pi.html
 
+## Building PTB on 64bit (work-in-progress)
+
+See https://github.com/iandol/Psychtoolbox-3/tree/arm64 for built mex files you can use and the changes needed to build them.
+
+Dependencies:
+
+```
+sudo apt install -y freeglut3-dev libglfw3-dev libglu1-mesa-dev libxi-dev freenect \
+  libpciaccess-dev libxxf86vm-dev libxcb-dri3-dev libxcb-present-dev \
+  libxcomposite-dev libxml2-dev libasound2-dev liboctave-dev
+```
+
+To build Screen need to add `-I/usr/lib/aarch64-linux-gnu/glib-2.0/include/` to mex or:
+
+```
+sudo ln -s /usr/lib/aarch64-linux-gnu/glib-2.0/include/glibconfig.h /usr/include/glib-2.0/
+```
+
+To build/use GPIO need this package not available anymore in apt: https://github.com/WiringPi/WiringPi/releases
+
+With most mex files rebuilt, performance is at least equivalent (and theoretically better) to 32bit builds!
 
 ### OLD Option: Neurodebian
 

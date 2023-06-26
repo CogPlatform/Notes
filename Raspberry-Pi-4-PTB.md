@@ -26,6 +26,7 @@ eval "$(~/.local/bin/micromamba shell hook -s posix)"
 micromamba create -n octave
 micromamba activate octave
 micromamba install -c conda-forge octave gstreamer gst-plugins-bad compilers c-compiler cxx-compiler
+octave --gui
 ```
 The compilers are needed for installing octave packages like instrument-control...
 

@@ -13,6 +13,41 @@ At the moment there are **no** 64bit builds of PTB for RPi, BUT we have a fork w
 * Octave from Debian (V6.4) and can also install OCtave V8.2 via `micromamba`
 * Install PTB via github 64bit ARM fork.
 
+## Installing PTB
+
+Use `sudo apt install octave` 
+
+Clone https://github.com/iandol/Psychtoolbox-3/tree/arm64 for built mex files you can use and the changes needed to build them.
+
+In a terminal type: `sudo raspi-config`; Navigate to Advanced Options > Compositor > xcompmgr composition manager; Choose No; Reboot the Raspberry Pi.
+
+Next:
+```
+sudo apt install -y liboctave-dev gamemode freeglut3
+```
+
+Create an `~/.octaverc` file with the following:
+
+```
+warning('off', 'Octave:shadowed-function');
+graphics_toolkit('gnuplot');
+more off;
+setenv('LC_CTYPE','en_US.UTF-8');setenv('LC_ALL','en_US.UTF-8')
+Screen('Preference','VisualDebugLevel',3);
+```
+
+First, it is important to run Octave from command-line via `octave --no-gui` then `cd ~/Code/Psychtoolbox` and run `SetupPsychToolbox`. Then you can use the GUI as normal...
+
+See https://github.com/kleinerm/Psychtoolbox-3/blob/master/Psychtoolbox/PsychDocumentation/RaspberryPiSetup.m for the official details. As we are using our own 64bit fork, use the github repo and branch mentioned above to install the custom 64bit build.
+
+### libdc1394
+
+Need a .22 linked to the current .25:
+
+```
+sudo ln -s /usr/lib/arm-linux-gnueabihf/libdc1394.so.25 /usr/lib/arm-linux-gnueabihf/libdc1394.so.22
+```
+
 ## Up-to-date Octave (currently 8.2) [optional]
 
 **Older Octave V6.4 can run PTB as well, so this step is optional!**
@@ -30,36 +65,6 @@ octave --gui
 ```
 The compilers are needed for installing octave packages like instrument-control...
 
-## Installing PTB
-
-See https://github.com/kleinerm/Psychtoolbox-3/blob/master/Psychtoolbox/PsychDocumentation/RaspberryPiSetup.m for the official details. As we are using our own 64bit fork, use the github repo and branch mentioned above to install the custom 64bit build.
-
-In a terminal type: sudo raspi-config; Navigate to Advanced Options > Compositor > xcompmgr composition manager; Choose No; Reboot the Raspberry Pi.
-
-```
-sudo apt install -y liboctave-dev gamemode freeglut3
-```
-
-Create an `~/.octaverc` file with the following:
-
-```
-warning('off', 'Octave:shadowed-function');
-graphics_toolkit('gnuplot');
-more off;
-setenv('LC_CTYPE','en_US.UTF-8');setenv('LC_ALL','en_US.UTF-8')
-Screen('Preference','VisualDebugLevel',3);
-```
-
-First, it is important to run Octave from command-line via `octave --no-gui` then `cd ~/Code/Psychtoolbox` and run `SetupPsychToolbox`. Then you can use the GUI as normal...
-
-### libdc1394
-
-Need a .22 linked to the current .25:
-
-```
-sudo ln -s /usr/lib/arm-linux-gnueabihf/libdc1394.so.25 /usr/lib/arm-linux-gnueabihf/libdc1394.so.22
-```
-
 ## Latest MESA [optional]
 
 You can update the GPU drivers. The easiest way is to use precompiled ones, see https://www.raspberrypi.org/forums/viewtopic.php?f=67&t=293361 and https://github.com/smartavionics/Cura/releases in particular.
@@ -73,7 +78,7 @@ You can build Mesa yourself from source: https://qengineering.eu/install-vulkan-
 
 ## Building PTB on 64bit (work-in-progress)
 
-See https://github.com/iandol/Psychtoolbox-3/tree/arm64 for built mex files you can use and the changes needed to build them.
+
 
 Dependencies:
 

@@ -33,7 +33,7 @@ With most mex files rebuilt, performance is at least equivalent (and theoretical
 
 ## Up-to-date Octave (currently 8.2)
 
-** Older Octave V6.4 can run PTB as well, so this step is optional!**
+**Older Octave V6.4 can run PTB as well, so this step is optional!**
 
 Octave is really old in Debian, and it is not so easy to build. Using flatpak cannot work with PTB due to the sandbox. However `conda`, or more specifically `microconda` can be used to build a custom environment will the latest octave and all dependencies easily. Conda used to be for Python but now is a general and flexible package manager for just about anything! See https://mamba.readthedocs.io/en/latest/installation.html for details, but quickly you can do this:
 

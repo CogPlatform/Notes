@@ -10,6 +10,8 @@ For macOS or Windows, see the CRS website: https://www.crsltd.com/tools-for-visi
 
 # MALAB Control
 
+Install opticka first: `git clone https://github.com/iandol/opticka.git`, cd to the folder and run `addOptickaToPath`.
+
 ```matlab
 c = calibrateLuminance;
 c.screen = 0; % screen to calibrate

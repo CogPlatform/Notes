@@ -8,7 +8,7 @@ ACTION=="add", ATTRS{idVendor}=="0861", ATTRS{idProduct}=="1003", RUN+="/sbin/mo
 
 For macOS or Windows, see the CRS website: https://www.crsltd.com/tools-for-vision-science/light-measurement-display-calibation/spectrocal-mkii-spectroradiometer/nest/product-support#npm
 
-# MALAB Control
+# MATLAB Control
 
 Install opticka first: `git clone https://github.com/iandol/opticka.git`, cd to the opticka folder and run `addOptickaToPath`.
 

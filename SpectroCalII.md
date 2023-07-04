@@ -22,3 +22,9 @@ c.runAll();
 ```
 
 You will get a plot of the raw and corrected values. To get a simple gamma value see `c.displayGamma`, the full fitted table is in `c.finalCLUT`. Run `c.plot` at any time to regenerate the gamma table plots.
+
+To get the `spd` useful for the colour toolbox, you can then run:
+
+```matlab
+phosphors = c.makeSPD();
+```

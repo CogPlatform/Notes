@@ -2,7 +2,7 @@
 
 ## Compute Module 4
 
-We've found these industrial modules https://docs.edatec.cn/cm4-nano that use eMMC and the compute module 4 (CM4), currently cheaper, with a nice case and more features than RPi4. To burn the OS, you can use rpiboot ([github](https://github.com/raspberrypi/usbboot)) or `sudo apt install rpiboot` and then run `rpiboot` to mount the eMMC as a disk via a USB cable (you must join the J55 jumper pins). Then use RPi Imager (`snap install rpi-imager`) to burn the OS (it can set up password / WiFi etc. very cool).
+We've found these industrial modules https://docs.edatec.cn/cm4-nano that use eMMC and the compute module 4 (CM4), currently cheaper, with a nice case and more features than RPi4. To burn the OS, you can use rpiboot ([github](https://github.com/raspberrypi/usbboot)) or `sudo apt install rpiboot` and then run `rpiboot` to mount the eMMC as a disk via a USB cable (you must join the J55 jumper pins). Then use RPi Imager (`snap install rpi-imager`) to burn the OS (it can set up password / WiFi etc. very cool). Note for an 8GB EMMC we need to be careful with what we install on the system, and an external SSD is highly recommended.
 
 ## OS Options
 The standard OS is 32bit (armhf) based off of Debian Bullseye 11. It is tiny and light, with Octave at V6.2. There is also a 64bit (aarch64) OS, which works well (and should be faster, utilise RAM better etc.). Ubuntu 22.04 64bit (aarch64) is also available. Both support Neurodebian, but a  standard PTB install require a 32bit OS (Mario only builds 32bit mex files), so Raspian 32bit is preferred for this. 
@@ -50,9 +50,9 @@ sudo ln -s /usr/lib/arm-linux-gnueabihf/libdc1394.so.25 /usr/lib/arm-linux-gnuea
 
 ## Up-to-date Octave (currently 8.2) [optional]
 
-**Older Octave V6.4 can run PTB as well, so this step is optional!**
+**Older Octave V6.2 can run PTB as well, so this step is optional!**
 
-Octave is really old in Debian, and it is not so easy to build. Using flatpak cannot work with PTB due to the sandbox. However `conda`, or more specifically `microconda` can be used to build a custom environment will the latest octave and all dependencies easily. Conda used to be for Python but now is a general and flexible package manager for just about anything! See https://mamba.readthedocs.io/en/latest/installation.html for details, but quickly you can do this:
+Octave is **really old** in Debian, and it is not so easy to build. Using flatpak cannot work with PTB due to the sandbox. However `conda`, or more specifically `microconda` can be used to build a custom environment will the latest octave and all dependencies easily. Conda used to be for Python but now is a general and flexible package manager for just about anything! See https://mamba.readthedocs.io/en/latest/installation.html for details, but quickly you can do this:
 
 ```
 curl micro.mamba.pm/install.sh | zsh
@@ -78,8 +78,6 @@ You can build Mesa yourself from source: https://qengineering.eu/install-vulkan-
 
 ## Building PTB on 64bit (work-in-progress)
 
-
-
 Dependencies:
 
 ```
@@ -94,7 +92,7 @@ To build Screen need to add `-I/usr/lib/aarch64-linux-gnu/glib-2.0/include/` to 
 sudo ln -s /usr/lib/aarch64-linux-gnu/glib-2.0/include/glibconfig.h /usr/include/glib-2.0/
 ```
 
-To build/use GPIO need this package not available anymore in apt: https://github.com/WiringPi/WiringPi/releases
+To build/use GPIO, you need this package that is not available anymore in apt: https://github.com/WiringPi/WiringPi/releases
 
 With most mex files rebuilt, performance is at least equivalent (and theoretically better) to 32bit builds!
 
@@ -116,10 +114,10 @@ sudo apt-key adv --recv-keys --keyserver hkps://keyserver.ubuntu.com 0xA5D32F012
 sudo apt-get update
 ```
 
-Then `sudo apt install octave-psychtoolbox-3` which will resolve all dependencies for you. However, this installs an ancient version of PTB.
+Then `sudo apt install octave-psychtoolbox-3` which will resolve all dependencies for you. However, this installs an **ancient** version of PTB.
 
 ### Gamemode [legacy OS only] ###
-This allows PTB's `Priority` command to work better on Linux. **Install directly from APT (from Bullseye at least)**, or for older systems from  https://github.com/FeralInteractive/gamemode like so:
+This allows PTB's `Priority` command to work better on Linux. **Install directly from APT (from Bullseye at least)**. But  for older systems you can build from  https://github.com/FeralInteractive/gamemode like so:
 
 ```
 sudo apt install meson libsystemd-dev pkg-config ninja-build git libdbus-1-dev libinih-dev
@@ -133,6 +131,10 @@ git checkout 1.6.1 # omit to build the master branch
 ## Problems
 
 32-bit rendering was fixed in a recent PTB update, Mario says fonts work, the only thing broken ATM is HDMI audio.
+
+## Low disk space on 8GB EMMC?
+
+You can use the built-in `ncdu` command (`cd /; sudo ncdu`), or install `QDirStat` as a GUI. Snap cache can be cleared with `sudo ~/bin/snapcache.sh` and you can use `sudo apt install bleachbit` to clear logs and remove locale files to save ~400MB. You can also use `synaptic` to sort installed packages by size then try to find ones that seem not essential (pypy, geany and some others).
 
 ## Interface to GPIO?
 
@@ -176,7 +178,7 @@ gpu_mem=256
 
 # Backing up the SD/eMMC system
 
-Backing up can be dome simply using `dd`. You can do it live, but better is on a different machine.For live, first insert a USB backup disk, then check the disk names `lsblk -p`:
+Backing up can be dome simply using `dd`. You can do it live, but better is on a different machine. For live, first insert a USB backup disk, then check the disk names `lsblk -p`:
 
 ```
 cogpi@cogpi-desktop:~$ lsblk -p

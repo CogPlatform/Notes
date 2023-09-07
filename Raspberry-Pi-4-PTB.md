@@ -83,7 +83,9 @@ Dependencies:
 ```
 sudo apt install -y freeglut3-dev libglfw3-dev libglu1-mesa-dev libxi-dev freenect \
   libpciaccess-dev libxxf86vm-dev libxcb-dri3-dev libxcb-present-dev \
-  libxcomposite-dev libxml2-dev libasound2-dev liboctave-dev
+  libxcomposite-dev libxml2-dev libasound2-dev liboctave-dev \
+  libgstreamer1.0-dev libx11-xcb-dev libgstreamer-plugins-base1.0-dev \
+  libraw1394-dev libdc1394-dev
 ```
 
 To build Screen need to add `-I/usr/lib/aarch64-linux-gnu/glib-2.0/include/` to mex or:

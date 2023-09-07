@@ -85,7 +85,7 @@ sudo apt install -y freeglut3-dev libglfw3-dev libglu1-mesa-dev libxi-dev freene
   libpciaccess-dev libxxf86vm-dev libxcb-dri3-dev libxcb-present-dev \
   libxcomposite-dev libxml2-dev libasound2-dev liboctave-dev \
   libgstreamer1.0-dev libx11-xcb-dev libgstreamer-plugins-base1.0-dev \
-  libraw1394-dev libdc1394-dev
+  libraw1394-dev libdc1394-dev portaudio19-dev libopenal-dev libopenxr-dev
 ```
 
 To build Screen need to add `-I/usr/lib/aarch64-linux-gnu/glib-2.0/include/` to mex or:
@@ -96,7 +96,7 @@ sudo ln -s /usr/lib/aarch64-linux-gnu/glib-2.0/include/glibconfig.h /usr/include
 
 To build/use GPIO, you need this package that is not available anymore in apt: https://github.com/WiringPi/WiringPi/releases
 
-With most mex files rebuilt, performance is at least equivalent (and theoretically better) to 32bit builds!
+Command is `linuxmakeitoctave3(-1)`; with most mex files rebuilt, performance is at least equivalent (and theoretically better) to 32bit builds!
 
 ### OLD Option: Neurodebian
 

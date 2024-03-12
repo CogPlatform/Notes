@@ -1,3 +1,8 @@
+---
+title: "Work with git and github"
+anthor: "Ian"
+---
+
 # Instructions for using Github to Clone, Fork and Generate Pull Requests
 
 There are many ways to work with Github and git. THe first thing to do is configure your name and link (it's supposed to be an email but I use a name basaed on which computer it 

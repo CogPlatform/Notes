@@ -1,3 +1,8 @@
+---
+title: "Data pipelines"
+anthor: "Ian"
+---
+
 # Data Pipelines
 
 For our social pair task, we want to build a data pipeline rather than the usual ad-hoc data storage. 

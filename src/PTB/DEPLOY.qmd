@@ -1,3 +1,8 @@
+---
+title: "Depoly your application"
+anthor: "Ian"
+---
+
 # App depolyment
 
 MATLAB Compiler can be used to package code into standalone programs. PTB has not been tested for stand-alone use, and some changes to the PTB and Titta code was necessary for things to be properly compiled. These should now be merged, and it should be possible to build without any further problems.

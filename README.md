@@ -1,3 +1,8 @@
+---
+title: "Get started"
+anthor: "Ian"
+---
+
 # Software + Hardware Notes
 Various notes on setting up our software + hardware environment. In general, all software development should take place under Ubuntu Linux, the default OS for our workstations. I have a bootstrap script I use to configure a new computer (macOS / Linux / windows WSL2), this will install several packages and config scripts depending on the OS, and switch to using `zsh` and use `zi` plugin manager, installs `nvim` if available etc.: https://github.com/iandol/dotfiles/blob/master/bootstrap.sh 
 

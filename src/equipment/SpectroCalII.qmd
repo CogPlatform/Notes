@@ -1,3 +1,7 @@
+---
+title: "Quick start with SpectroCal mark Ⅱ"
+author: "Ian"
+---
 # Installation
 
 For Linux, to install the spectrocal serial interface edit `/etc/udev/rules.d/99-ftdi.rules` and add this line:

@@ -1,6 +1,6 @@
 ---
 title: "Work with git and github"
-anthor: "Ian"
+author: "Ian"
 ---
 
 # Instructions for using Github to Clone, Fork and Generate Pull Requests

@@ -1,6 +1,6 @@
 ---
 title: "Use PTB on raspberry Pi"
-anthor: "Ian"
+author: "Ian"
 ---
 
 # Raspberry Pi 4 setup #

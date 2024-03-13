@@ -1,6 +1,6 @@
 ---
 title: "Depoly your application"
-anthor: "Ian"
+author: "Ian"
 ---
 
 # App depolyment

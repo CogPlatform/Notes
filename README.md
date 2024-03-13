@@ -1,6 +1,6 @@
 ---
 title: "Get started"
-anthor: "Ian"
+author: "Ian"
 ---
 
 # Software + Hardware Notes

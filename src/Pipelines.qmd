@@ -1,6 +1,6 @@
 ---
 title: "Data pipelines"
-anthor: "Ian"
+author: "Ian"
 ---
 
 # Data Pipelines

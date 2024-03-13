@@ -1,6 +1,6 @@
 ---
 title: "Use muliti displays with PTB"
-anthor: "Ian"
+author: "Ian"
 ---
 
 # How to set up TWO displays for PTB + Ubuntu

@@ -1,6 +1,6 @@
 ---
 title: "How to use touchscreen with PTB"
-anthor: "Ian"
+author: "Ian"
 ---
 
 # Configuring Touchscreens with 2 X-Screens

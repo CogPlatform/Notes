@@ -1,6 +1,6 @@
 ---
 title: "Quick start with pupil core"
-anthor: "Ian"
+author: "Ian"
 ---
 
 # Pupil Labs Core

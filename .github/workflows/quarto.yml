@@ -1,5 +1,17 @@
+name: Publish note
+
 on:
   workflow_dispatch:
+
+  push:
+    branches:
+      - master  
+    paths:
+      - '.github/workflows/quarto.yml'
+      - 'src/**/*.qmd'
+      - '_quarto.qmd'
+      - 'README.md'
+      - 'img'
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:

@@ -1,3 +1,8 @@
+---
+title: "Use muliti displays with PTB"
+author: "Ian"
+---
+
 # How to set up TWO displays for PTB + Ubuntu
 
 PTB uses and optimised display mode where X-Windows is set up so MATLAB occupies one X-screen and PTB can fully control another X-screen (it is not used by Ubuntu GUI at all). The important point is that this system uses X11 config files, and so you should first ensure that X!! doesn't have lots of other config files that may interfere. The config files are stored in `/etc/X11/` and `/etc/X11/xorg.conf.d/`. Check to see if the is an `xorg.cong` file in `/etc/X11/` or files in `/etc/X11/xorg.conf.d/`. PTB's config file is called `/etc/X11/xorg.conf.d/90-ptbxorg.conf` when it is installed, see below.

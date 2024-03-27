@@ -1,18 +1,28 @@
 project: 
   type: website
-
+format:
+  html:
+    theme:
+      light: lux
+      dark: darkly
 website: 
-  title: CogPlatform
+  title: Cognitive & Behavioural Research Platform, CAS
   favicon: img/look.png
-
+  page-navigation: true
+  back-to-top-navigation: true
+  bread-crumbs: true
+  other-links: ["https://github.com/CogPlatform/Notes"]
   navbar:
-    left:
+    logo: img/look.png
+    right:
       - href: index.qmd
         text: Home
-
   sidebar: 
     search: true
     style: floating
+    tools:
+      - icon: github
+        href: https://github.com/
     contents: 
       - section: "Start with PTB"
         contents: src/PTB/*

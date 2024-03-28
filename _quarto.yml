@@ -11,9 +11,9 @@ website:
   page-navigation: true
   back-to-top-navigation: true
   bread-crumbs: true
-  other-links: ["https://github.com/CogPlatform/Notes"]
+  other-links: "https://github.com/CogPlatform/Notes"
   navbar:
-    logo: img/look.png
+    logo: img/logo1.png
     right:
       - href: index.qmd
         text: Home

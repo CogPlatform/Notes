@@ -12,7 +12,12 @@ website:
   back-to-top-navigation: true
   bread-crumbs: true
   other-links: 
-    - "https://github.com/CogPlatform/Notes"
+    - text: "Notes Repo"
+      href: "https://github.com/CogPlatform/Notes"
+    - text: "Opticka"
+      href: "https://github.com/iandol/Opticka"
+    - text: "CEBSIT"
+      href: "http://www.cebsit.cas.cn"
   navbar:
     logo: img/logo1.png
     right:
@@ -23,7 +28,7 @@ website:
     style: floating
     tools:
       - icon: github
-        href: https://github.com/
+        href: https://github.com/CogPlatform
     contents: 
       - section: "Start with PTB"
         contents: src/PTB/*

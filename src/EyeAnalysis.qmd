@@ -1,0 +1,72 @@
+---
+title: "Analysing Eyetracker data"
+author: "Ian"
+---
+
+Opticka supports 4 different eyetrackers, and for Eyelink, iRec and Tobii, there are analysis classes. In general, opticka sends markers compatible with the Eyelink pipeline, this is `TRIALID #` at the start of a trial and `TRIALRESULT #` at the end. We can use these markers to parse out trials with the TRIALID number defining which variable was shown on tht trial and TRIALRESULT number defining correct/incorrect etc. We can also pass other messages to give more details for each trial, like the `uuid` of the state machine state etc.
+
+Lets take the Tobii. The data is stored in the MAT file at the end of a session. We can load it using:
+
+```matlab
+t = tobiiAnalysis('fileName', '/path/to/file');
+```
+
+Then we can parse the data, this loads the raw data, extracts the trials and variables, and calculates saccades etc. If https://github.com/CogPlatform/NystromHolmqvist2010 is installed, we can use this to provide better smoothing / data replacement for blinks / saccade detection etc.
+
+```matlab
+>> t.parse
+---> runExperiment loadobj: NEW:Pupil-2024-4-9-17-36-2<runExperiment#1B48E001A> (UUID: 1B48E001A)
+
+   > metaStimulus object present
+   > SIF: /home/cog5/Code/opticka/CoreProtocols/PupillaryReflex.m 
+   > stateInfoFile: /home/cog5/Code/opticka/CoreProtocols/PupillaryReflex.m assigned
+   > loaded taskSequence
+   > Devices:   tobii
+   > loaded screenManager
+
+
+... runExperiment (Opticka file) found
+===>>> Loaded Tobii<tobiiManager#1B5229A6A> containing 327 messages and 56081 samples
+===>>> Variables contained in the task:
+    {'1 = alpha:0'  }
+    {'2 = alpha:0.1'}
+    {'3 = alpha:1'  }
+    {'4 = alpha:1'  }
+    {'5 = alpha:1'  }
+    {'6 = alpha:1'  }
+    {'7 = alpha:1'  }
+    {'8 = alpha:1'  }
+:#: Loading Raw MAT Data took 671 ms
+Parsing Tobii Experiment Events: [====================] Done. [0 seconds]    
+:#: Parsing Tobii Events into 42 Trials took 0.08 secs | min-t = -2.09 max-t = 1.27
+No ROI specified...
+No TOI specified...
+Loading trials to compute microsaccades: [====================] Done. [0 seconds]  
+:#: Parsing MicroSaccades took 97 ms
+--->>> Full saccadic analysis of Trial 1:
+--->>> Full saccadic analysis of Trial 2:
+...
+```
+
+We get 42 trials, with a time range from -2.09 to +1.27 seconds. Each trial's data is stored in `t.trials` and if there were variables they are stored in `t.vars`. For example if you want to plot all trials from variable 3:
+
+```matlab
+>> t.plotRange = [-2 1]; % set the plotting range in seconds
+>> t.plot(t.vars(3).idx);
+```
+
+If you want to plot all correct trials:
+
+```matlab
+>> t.plot(t.correct.idx);
+```
+
+You can visually step through each trial using `t.explore`. To plot the `NystromHolmqvist2010` analysis results only:
+
+```matlab
+t.plotNH(10); % plot the 10th trial
+```
+
+The `NystromHolmqvist2010` data is stored for each trial, e.g. `t.trials(10).data`.
+
+

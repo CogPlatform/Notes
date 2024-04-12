@@ -1,5 +1,5 @@
 ---
-title: "Work with git and github"
+title: "Working with git and Github"
 author: "Ian"
 ---
 

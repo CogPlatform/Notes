@@ -34,9 +34,10 @@ website:
         contents: src/PTB/*
       - section: "Equipment"
         contents: src/equipment/*
-      - section: "Pipelines"
+      - section: "Analysis"
         contents:
           - src/Pipelines.qmd
+          - src/EyeAnalysis.qmd
       - section: "Tools"
         contents:
           - src/GITHUB.qmd

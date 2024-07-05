@@ -13,8 +13,7 @@ l64.dylib` for macOS must be replaced with `libptbdrawtext_ftgl64.so.1` for 64bi
 The list of folders that needed to be added to compile properly, you can add them with the GUI App Bundle:
 
 ```
--a ~/Code/Psychtoolbox-3/Psychtoolbox/PsychBasic/PsychPlugins/libptbdrawtext_ftg
-l64.dylib
+-a ~/Code/Psychtoolbox-3/Psychtoolbox/PsychBasic/PsychPlugins/
 -a ~/Code/Psychtoolbox-3/Psychtoolbox/PsychOpenGL/MOGL/core 
 -a ~/Code/Psychtoolbox-3/Psychtoolbox/PsychOpenGL/PsychGLSLShaders 
 -a ~/Code/opticka/CoreProtocols 
@@ -24,7 +23,7 @@ l64.dylib
 -a ~/Code/opticka/stimuli 
 -a ~/Code/opticka/ui/images 
 -a ~/Code/opticka/help 
--a ~/Code/Titta/TittaMex/ 
+-a ~/Code/Titta/SDK_wrapper/TittaMex/ 
 ```
 
 The runtime can be downloaded by the install packager or downloaded manually:
@@ -34,11 +33,10 @@ https://www.mathworks.com/help/compiler/mcr-path-settings-for-run-time-deploymen
 
 ## Command-line
 
-Without starting MATLAB you can use the `mcc` command to build from Terminal (replace ^ with \ if you are using `bash` or `zsh`), indeed this seems to work better than the GUI within MATLAB:
+Without starting MATLAB you can use the `mcc` command to build from Terminal (replace ^ with \\ if you are using `bash` or `zsh`), indeed this seems to work better than the GUI within MATLAB:
 
 ```
-mcc -a ~/Code/Psychtoolbox-3/Psychtoolbox/PsychBasic/PsychPlugins/libptbdrawtext_ftg
-l64.dylib ^
+mcc -a ~/Code/Psychtoolbox-3/Psychtoolbox/PsychBasic/PsychPlugins/ ^
 -a ~/Code/Psychtoolbox-3/Psychtoolbox/PsychOpenGL/MOGL/core ^
 -a ~/Code/Psychtoolbox-3/Psychtoolbox/PsychOpenGL/PsychGLSLShaders ^
 -a ~/Code/opticka/CoreProtocols ^
@@ -48,7 +46,7 @@ l64.dylib ^
 -a ~/Code/opticka/stimuli ^
 -a ~/Code/opticka/ui/images ^
 -a ~/Code/opticka/help ^
--a ~/Code/Titta/TittaMex/ ^
+-a ~/Code/Titta/SDK_wrapper/TittaMex/ ^
 -R -startmsg,'Runtime Init START' ^
 -R -completemsg,'Runime Init FINISH' ^
 -d ~/build ^

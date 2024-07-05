@@ -31,6 +31,10 @@ The runtime can be downloaded by the install packager or downloaded manually:
 https://www.mathworks.com/help/compiler/install-the-matlab-runtime.html
 https://www.mathworks.com/help/compiler/mcr-path-settings-for-run-time-deployment.html
 
+### Docker
+
+Deployment can also be to a docker image, we will need to test this out...
+
 ## Command-line
 
 Without starting MATLAB you can use the `mcc` command to build from Terminal (replace ^ with \\ if you are using `bash` or `zsh`), indeed this seems to work better than the GUI within MATLAB:

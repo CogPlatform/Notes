@@ -222,7 +222,10 @@ wget -qO - mirrors.ubuntu.com/mirrors.txt
 sudo sed -i -e 's/archive\.ubuntu\.com/mirrors\.cn99\.com/' /etc/apt/sources.list
 ```
 
+[x-cmd](https://x-cmd.com) also provides great mirror tools for optimising chinese use...
+
 ## Eyelink on Linux
+
 ```shell
 sudo add-apt-repository universe
 sudo apt update
@@ -237,10 +240,21 @@ sudo apt install eyelinkcore edfapi edf2asc edfconverter
 ```
 
 ## Disable Nouveau if you want to install NVidia driver
+
 ```shell
 sudo bash -c "echo blacklist nouveau > /etc/modprobe.d/blacklist-nvidia-nouveau.conf"
 sudo bash -c "echo options nouveau modeset=0 >> /etc/modprobe.d/blacklist-nvidia-nouveau.conf"
 sudo update-initramfs -u
 sudo reboot
 ```
+
+## Make sure Wayland is not used in Ubuntu 
+
+Edit /etc/gdm3/custom.conf and make sure the following line is enabled:
+
+```ini
+WaylandEnable=false
+```
+
+
 

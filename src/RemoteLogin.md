@@ -1,4 +1,6 @@
-We want to use zerotier to access machines using a secure and private IP address, and we run SSH and nomachine to allow terminal and GUI access, both using SSH keys only.
+Remote desktop can be a security hole, so we must be careful, especially for lab machines!!!
+
+We can use Zerotier to access machines using a secure and private IP address, and we run SSH and nomachine to allow terminal and GUI access, both using SSH keys only. This is much more secure than using the normal remote desktops.
 
 # Steps
 

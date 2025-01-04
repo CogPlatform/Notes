@@ -21,22 +21,29 @@ No machine is a fast cross-platform remote desktop that can be secured by zeroti
 5. FOR SSHD: Install openssh-server `sudo apt install openssh-server` -- you may need to use Ubuntu settings to enable, otherwise `sudo systemctl enable ssh`
 6. FOR SSHD: Configure `/etc/ssh/sshd_config` to only listen to Zerotier IPs via `ListenAddress`
 
-# Setup NoMachine to Limit login
+# Setup NoMachine to Secure Login
 
 For the **server** computer, edit the main config (`/usr/NX/etc/server.cfg` on Linux, not sure on Windows) and change:
 
 ```
-NXdListenAddress "172.23.23.X" # set to the IP of zerotier
-AcceptedAuthenticationMethods NX-private-key # only accept key login
+NXdListenAddress "172.23.23.X" # set to the IP of zerotier only
+AcceptedAuthenticationMethods NX-private-key # only accept SSH key login
 ```
 
-To use SSH keys, copy the public key to the `~/.ssh/authorized-keys` file to register your key on that system.
+See https://kb.nomachine.com/AR02L00785 for instructions. Basically copy a public key to `~/.nx/config/authorized.crt` file to register that key to NX. 
 
-See https://kb.nomachine.com/AR02L00785 for instructions.
+```shell
+> sh-keygen -t rsa -b 4096 -C "your personal comment or email"
+> scp ~/.ssh/id_rsa.pub username@server_hostname_or_ip:~/.ssh/id_rsa_nxclient.pub
+> cat ~/.ssh/id_rsa_nxclient.pub >> ~/.nx/config/authorized.crt
+> chmod 0600 ~/.nx/config/authorized.crt
+```
 
 For client, make sure you have your private key installed in `~/.ssh`
 
 # Setup SSHD to only accept SSH keys
+
+To use SSH keys, copy the public key to the `~/.ssh/authorized-keys` file to register your key on that system.
 
 See https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server
 

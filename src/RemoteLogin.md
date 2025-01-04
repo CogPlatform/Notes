@@ -23,11 +23,24 @@ No machine is a fast cross-platform remote desktop that can be secured by zeroti
 
 # Setup NoMachine to Limit login
 
-Edit `/usr/NX/etc/server.cfg` and change: 
+For the **server** computer, edit the main config (`/usr/NX/etc/server.cfg` on Linux, not sure on Windows) and change:
+
+```
+NXdListenAddress "172.23.23.X" # set to the IP of zerotier
+AcceptedAuthenticationMethods NX-private-key # only accept key login
+```
+
+To use SSH keys, copy the public key to the `~/.ssh/authorized-keys` file to register your key on that system.
+
+See https://kb.nomachine.com/AR02L00785 for instructions.
+
+For client, make sure you have your private key installed in `~/.ssh`
 
 # Setup SSHD to only accept SSH keys
 
 See https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server
+
+To make a SSH key on windows: https://www.purdue.edu/science/scienceit/ssh-keys-windows.html — basically you can install ssh-keygen and use that.
 
 To let sshd only use key, edit `/etc/ssh/sshd_config`:
 
@@ -38,6 +51,3 @@ PermitRootLogin no
 PermitRootLogin prohibit-password
 ```
 
-Note you can also edit /usr/NX/share/server.cfg to set `AcceptedAuthenticationMethods NX-private-key` so it also only uses SSH key login
-
-See https://kb.nomachine.com/AR02L00785 for instructions.

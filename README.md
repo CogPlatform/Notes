@@ -13,10 +13,11 @@ I always install at least:
 
 ```
 sudo apt -my install build-essential zsh git gparted vim curl file mc
-sudo apt -my install freeglut3  mesa-utils exfatprogs
+sudo apt -my install freeglut3-dev # this is libglut-dev in 24.04
+sudo apt -my install mesa-utils exfatprogs
 sudo apt -my install p7zip-full p7zip-rar libunrar5 
-sudo apt -my gawk figlet jq ansiweather htop 
-sudo apt -my install libdc1394-25 libraw1394-11
+sudo apt -my install gawk figlet jq ansiweather htop 
+sudo apt -my install libdc1394-dev libraw1394-dev libzmq3-dev
 sudo apt -my install synaptic
 ```
 

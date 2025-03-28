@@ -65,3 +65,12 @@ PermitRootLogin no
 PermitRootLogin prohibit-password
 ```
 
+You can also ensure `sshd` starts after `zerotier` by adding this:
+
+```
+[Unit]
+After=network-online.target network.target zerotier-one.service
+```
+
+using `sudo systemctl edit ssd.service`
+

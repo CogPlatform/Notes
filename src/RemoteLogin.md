@@ -15,12 +15,12 @@ We can use Zerotier to access machines using a secure and private IP address, an
 
 No machine is a fast cross-platform remote desktop that can be secured by zerotier:
 
-4. Install NoMachine: https://downloads.nomachine.com/linux/?id=1
+5. Install NoMachine: https://downloads.nomachine.com/linux/?id=1
 
 ## SSHD (macOS and Linux)
 
-5. FOR SSHD: Install openssh-server `sudo apt install openssh-server` -- you may need to use Ubuntu settings to enable, otherwise `sudo systemctl enable ssh`
-6. FOR SSHD: Configure `/etc/ssh/sshd_config` to only listen to the Zerotier IP for this machine via `ListenAddress`, e.g. `ListenAddress 172.22.22.22`
+6. FOR SSHD: Install openssh-server `sudo apt install openssh-server` -- you may need to use Ubuntu settings to enable, otherwise `sudo systemctl enable ssh`
+7. FOR SSHD: Configure `/etc/ssh/sshd_config` to only listen to the Zerotier IP for this machine via `ListenAddress`, e.g. `ListenAddress 172.22.22.22`
 
 # Setup NoMachine to Secure Login
 

@@ -1,28 +1,29 @@
-Remote desktop can be a security hole, so we must be careful, especially for lab machines!!! This should only take a few minutes.
+> [!CAUTION]
+> Remote desktop can be a security hole, so we must be careful, especially for lab machines!!! This should only take a few minutes.
 
-We can use Zerotier to access machines using a secure and private IP address, and we then run SSH and nomachine only within the Zerotier network to allow terminal and GUI access, both using SSH keys only. This is much more secure than using the normal remote desktops.
+We use Zerotier private network to access machines using a secure and private IP address, and we run SSH and nomachine only within the Zerotier network to allow terminal and GUI access, both using SSH keys only. This is much more secure than using the normal remote desktop software.
 
-# Steps
+# A - Software
 
-## Zerotier (needed for NoMachine and SSH)
+## 1 - Zerotier (needed for NoMachine and SSH)
 
 1. Install ZeroTier: `curl -s https://install.zerotier.com | sudo bash`
 2. Get details: `sudo zerotier-cli info`
 3. If you know the network ID: `sudo zerotier-cli join #ID`
 4. Register this to CogPlatform network <https://my.zerotier.com>
 
-## No Machine
+## 2 - No Machine
 
 No machine is a fast cross-platform remote desktop that can be secured by zerotier:
 
 5. Install NoMachine: https://downloads.nomachine.com/linux/?id=1
 
-## SSHD (macOS and Linux)
+## 3 - SSHD (macOS and Linux)
 
 6. FOR SSHD: Install openssh-server `sudo apt install openssh-server` -- you may need to use Ubuntu settings to enable, otherwise `sudo systemctl enable ssh`
 7. FOR SSHD: Configure `/etc/ssh/sshd_config` to only listen to the Zerotier IP for this machine via `ListenAddress`, e.g. `ListenAddress 172.22.22.22`
 
-# Setup NoMachine to Secure Login
+# B - Setup NoMachine to Secure Login
 
 See https://kb.nomachine.com/AR02L00785 for instructions. Basically copy a public key to `~/.nx/config/authorized.crt` file to register that key to NX. 
 
@@ -44,7 +45,7 @@ NXdListenAddress "172.23.23.X" # set to the IP of zerotier only
 AcceptedAuthenticationMethods NX-private-key # only accept SSH key login
 ```
 
-# Setup SSHD to only accept SSH keys
+# C - Setup SSHD to only accept SSH keys
 
 To use SSH keys, add the public key to the `~/.ssh/authorized_keys` file to register your key on that system.
 

@@ -1,31 +1,44 @@
 > [!CAUTION]
-> Remote desktop can be a security hole, so we must be careful, especially for lab machines!!! This should only take a few minutes.
+> Most remote desktops apps are a security risk, they use a single password credential, so we must be careful, especially for lab machines!!! This should only take a few minutes.
 
-We use Zerotier private network to access machines using a secure and private IP address, and we run SSH and nomachine only within the Zerotier network to allow terminal and GUI access, both using SSH keys only. This is much more secure than using the normal remote desktop software.
+We use Zerotier private network to access machines using a secure and private IP address, and we run both SSH and nomachine **only within** the Zerotier network to allow terminal and GUI access. Both login using SSH keys only, passwords are disabled. This is much more secure than using standard remote access software.
+
+We use https://vault.bitwarden.eu to store login credentials.
 
 # A - Software
 
-## 1 - Zerotier (needed for NoMachine and SSH)
+## 1 - Zerotier (VPN needed for both NoMachine and SSH)
 
 1. Install ZeroTier: `curl -s https://install.zerotier.com | sudo bash`
-2. Get details: `sudo zerotier-cli info`
-3. If you know the network ID: `sudo zerotier-cli join #ID`
-4. Register this to CogPlatform network <https://my.zerotier.com>
+2. Ensure the system service is enabled: `sudo systemctl enable zerotier-one.service`
+3. Get details: `sudo zerotier-cli info`
+4. Find network ID from CogPlatform network <https://my.zerotier.com>
+5. Use the ID to register the machine to the network: `sudo zerotier-cli join #ID`
+6. Authorise this device from Zerotier: <https://my.zerotier.com>
 
 ## 2 - No Machine
 
 No machine is a fast cross-platform remote desktop that can be secured by zerotier:
 
-5. Install NoMachine: https://downloads.nomachine.com/linux/?id=1
+5. Install NoMachine: <https://downloads.nomachine.com/linux/?id=1>
 
 ## 3 - SSHD (macOS and Linux)
 
-6. FOR SSHD: Install openssh-server `sudo apt install openssh-server` -- you may need to use Ubuntu settings to enable, otherwise `sudo systemctl enable ssh`
-7. FOR SSHD: Configure `/etc/ssh/sshd_config` to only listen to the Zerotier IP for this machine via `ListenAddress`, e.g. `ListenAddress 172.22.22.22`
+6. FOR SSHD: Install openssh-server `sudo apt install openssh-server` -- you may need to use Ubuntu settings to enable, or `sudo systemctl enable ssh`
+7. FOR SSHD: edit `/etc/ssh/sshd_config` to only listen to the Zerotier IPs for this machine via `ListenAddress`, e.g. `ListenAddress 172.25.25.25` where `x.x.x.x` is the IP assigned by zerotier, to allow IPv6 add ssecond `ListenAddress` with the IPv6 address, so you have something like:
+
+```
+ListenAddress 172.25.25.25
+ListenAddress fdaf:78bf:9436:aef1:ec99:93a5:43f7:1bf3
+```
 
 # B - Setup NoMachine to Secure Login
 
-See https://kb.nomachine.com/AR02L00785 for instructions. Basically copy a public key to `~/.nx/config/authorized.crt` file to register that key to NX. 
+The public key is stored in bitwarden.
+
+See https://kb.nomachine.com/AR02L00785 for instructions. Basically copy the public key to `~/.nx/config/authorized.crt` file to register that key to NX. 
+
+We already have the keys created, but here are the instructions how to make the keys (to make a SSH key on windows: https://www.purdue.edu/science/scienceit/ssh-keys-windows.html — basically you can install ssh-keygen and use that):
 
 ```shell
 ### on the client
@@ -36,7 +49,7 @@ See https://kb.nomachine.com/AR02L00785 for instructions. Basically copy a publi
 > chmod 0600 ~/.nx/config/authorized.crt
 ```
 
-For client, make sure the private key installed in `~/.ssh` as nxclient will use this file.
+For the control client, make sure the private key installed in `~/.ssh` as nxclient will use this file.
 
 Now, for the **server** computer to use only zerotier IP and only ssh key login, edit the main config (`/usr/NX/etc/server.cfg` on Linux, not sure on Windows) and change:
 
@@ -55,8 +68,6 @@ cat ~/.ssh/cogp.pub | ssh username@remote_host "mkdir -p ~/.ssh && cat >> ~/.ssh
 
 See https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server
 
-To make a SSH key on windows: https://www.purdue.edu/science/scienceit/ssh-keys-windows.html — basically you can install ssh-keygen and use that.
-
 Once the key is working, you can now disable passwords by editing `/etc/ssh/sshd_config`:
 
 ```
@@ -66,7 +77,7 @@ PermitRootLogin no
 PermitRootLogin prohibit-password
 ```
 
-You can also ensure `sshd` starts after `zerotier` by adding this:
+You can also ensure `sshd` starts **after** `zerotier` by adding this:
 
 ```
 [Unit]

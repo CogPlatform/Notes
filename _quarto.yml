@@ -38,6 +38,7 @@ website:
         contents:
           - src/Pipelines.qmd
           - src/EyeAnalysis.qmd
-      - section: "Tools"
+      - section: "Tools/Setup"
         contents:
           - src/GITHUB.qmd
+          - src/RemoteLogin.qmd

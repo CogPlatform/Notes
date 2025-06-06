@@ -1,3 +1,8 @@
+---
+title: "Setup Secure Remote Login"
+author: "Ian"
+---
+
 > [!CAUTION]
 > Most remote desktops apps are a security risk, they use a single password credential, so we must be careful, especially for lab machines!!! This should only take a few minutes.
 

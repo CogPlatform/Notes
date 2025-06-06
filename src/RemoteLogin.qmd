@@ -1,9 +1,9 @@
 > [!CAUTION]
 > Most remote desktops apps are a security risk, they use a single password credential, so we must be careful, especially for lab machines!!! This should only take a few minutes.
 
-We use Zerotier private network to access machines using a secure and private IP address, and we run both SSH and nomachine **only within** the Zerotier network to allow terminal and GUI access. Both login using SSH keys only, passwords are disabled. This is much more secure than using standard remote access software.
+We use Zerotier private network to access machines using a secure and private IP address, and we run both SSH and nomachine **ONLY inside** the Zerotier network to allow both terminal and GUI access. Both logins use SSH keys only, passwords are disabled. This is much more secure than using standard remote access software.
 
-We use https://vault.bitwarden.eu to store login credentials.
+We use https://vault.bitwarden.eu to store all login credentials.
 
 # A - Software
 
@@ -38,18 +38,7 @@ The public key is stored in bitwarden.
 
 See https://kb.nomachine.com/AR02L00785 for instructions. Basically copy the public key to `~/.nx/config/authorized.crt` file to register that key to NX. 
 
-We already have the keys created, but here are the instructions how to make the keys (to make a SSH key on windows: https://www.purdue.edu/science/scienceit/ssh-keys-windows.html — basically you can install ssh-keygen and use that):
-
-```shell
-### on the client
-> ssh-keygen -f ~/.ssh/cogp -t rsa -b 4096 -C "your personal comment or email"
-> scp ~/.ssh/cogp.pub username@server_hostname_or_ip:~/.ssh/cogp.pub
-### on the server
-> cat ~/.ssh/cogp.pub >> ~/.nx/config/authorized.crt
-> chmod 0600 ~/.nx/config/authorized.crt
-```
-
-For the control client, make sure the private key installed in `~/.ssh` as nxclient will use this file.
+For the control client (your local machine), make sure the private key installed in `~/.ssh` as nxclient will use this file.
 
 Now, for the **server** computer to use only zerotier IP and only ssh key login, edit the main config (`/usr/NX/etc/server.cfg` on Linux, not sure on Windows) and change:
 
@@ -85,4 +74,17 @@ After=network-online.target network.target zerotier-one.service
 ```
 
 using `sudo systemctl edit ssd.service`
+
+### How to make new keys
+
+We already have the keys created, but here are the instructions how to make the keys (to make a SSH key on windows: https://www.purdue.edu/science/scienceit/ssh-keys-windows.html — basically you can install ssh-keygen and use that):
+
+```shell
+### on the client
+> ssh-keygen -f ~/.ssh/cogp -t rsa -b 4096 -C "your personal comment or email"
+> scp ~/.ssh/cogp.pub username@server_hostname_or_ip:~/.ssh/cogp.pub
+### on the server
+> cat ~/.ssh/cogp.pub >> ~/.nx/config/authorized.crt
+> chmod 0600 ~/.nx/config/authorized.crt
+```
 
